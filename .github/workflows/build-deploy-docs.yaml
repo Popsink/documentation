@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    env:
-      MKDOCS_VERSION: 9.5.4
     steps:
       - uses: actions/checkout@v4
       - name: Configure Git Credentials
