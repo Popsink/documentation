@@ -1,0 +1,1 @@
+[OAD(./docs/assets/public-api.json)]

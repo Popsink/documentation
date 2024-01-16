@@ -1,4 +1,23 @@
-site_name: My Docs
+site_name: Popsink documentation
 site_url: https://docs.popsink.com/
 theme:
   name: material
+  logo: assets/logo.svg
+  features:
+    - header.autohide
+  palette: 
+    primary: black
+
+plugins:
+  - search
+  - neoteroi.mkdocsoad:
+      use_pymdownx: true
+
+markdown_extensions:
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_css:
+  - css/mkdocsoad.css
