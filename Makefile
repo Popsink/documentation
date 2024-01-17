@@ -1,5 +1,5 @@
 MKDOCS_VERSION := 9.5.4
-MKDOCS_IMAGE := popsink/mkdocs-material
+MKDOCS_IMAGE := ppsk/mkdocs-material
 MKDOCS_IMAGE_TAG := $(MKDOCS_IMAGE):$(MKDOCS_VERSION)
 USER := $(shell id -u):$(shell id -g)
 PORT := 8000
