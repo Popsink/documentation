@@ -1,4 +1,4 @@
-# Firestore source
+# Firestore Source
 
 The Firestore Source Connector allows you to easily ingest from the Firestore databases using a Google Cloud service account and whitelist specific Firestore collections that you want to access. This document will guide you through the necessary steps to get started with the Firestore Connector.
 

@@ -1,4 +1,4 @@
-# Mysql source
+# Mysql Source
 
 The MySQL Source Connector is a powerful and efficient solution designed to facilitate seamless data integration between your MySQL databases and Popsink. This connector helps you synchronize with MySQL in real-time, ensuring that your target systems remain updated with the latest information in real-time, driving business intelligence, analytics, and operational efficiency.
 

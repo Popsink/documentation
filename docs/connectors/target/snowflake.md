@@ -1,4 +1,4 @@
-# Snowflake target
+# Snowflake Target
 
 ## Prerequisites
 
