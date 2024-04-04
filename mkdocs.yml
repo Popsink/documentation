@@ -19,8 +19,5 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
 
-extra_css:
-  - css/mkdocsoad.css
-
 extra_javascript:
   - javascripts/crisp.js
