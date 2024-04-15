@@ -10,6 +10,7 @@ theme:
 
 plugins:
   - search
+  - meta-descriptions
   - neoteroi.mkdocsoad:
       use_pymdownx: true
 

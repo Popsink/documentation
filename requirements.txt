@@ -1,3 +1,4 @@
 mkdocs-material
 neoteroi-mkdocs
 pymdown-extensions
+mkdocs-meta-descriptions-plugin
