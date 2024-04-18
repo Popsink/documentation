@@ -1,5 +1,7 @@
 # Snowflake Target
 
+The snowflake target connector.
+
 ## Prerequisites
 
 - Create a key pair (no pass phrase).
