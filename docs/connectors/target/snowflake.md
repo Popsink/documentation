@@ -17,6 +17,19 @@ To begin using the Snowflake Target Connector, follow these steps:
 1. Prerequisites:
 - A Snowflake account where you whish to sync your data
 - A key pair (no pass phrase) for authentication with Snowflake
+```bash
+openssl genrsa 2048 | openssl pkcs8 -topk8 -inform PEM -out rsa_key.p8 -nocrypt
+
+openssl rsa -in rsa_key.p8 -pubout -out rsa_key.pub
+```
+
+- In snowflake update user with the public key.
+
+```sql
+ALTER USER {user} SET RSA_PUBLIC_KEY='{public_key}';
+```
+
+- Copy the private key without the header and footer.
 ```
 -----BEGIN PRIVATE KEY-----
 -----END PRIVATE KEY-----

@@ -18,10 +18,10 @@ SELECT
  REPLICATION CLIENT
 ```
 
-if the using AWS Aurora or RDS
+if you want to connect with a ssh tunnel. Create the use with :
 
 ```sql
-(optional) LOCK TABLES
+CREATE USER 'user'@'%' IDENTIFIED BY 'password';
 ```
 
 ## Key Features
