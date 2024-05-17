@@ -4,18 +4,16 @@ The MySQL Source Connector is a powerful and efficient solution designed to faci
 
 ## Prerequisites
 
-- You may need to whitelist Popsink’s IP address.
-
 - Binlogs enabled in FULL. [See](https://debezium.io/documentation/reference/stable/connectors/mysql.html#enable-mysql-binlog).
 
 - A user with the following privileges on the target source(s):
 
 ```sql
 SELECT
- RELOAD
- SHOW DATABASES
- REPLICATION SLAVE
- REPLICATION CLIENT
+RELOAD
+SHOW DATABASES
+REPLICATION SLAVE
+REPLICATION CLIENT
 ```
 
 if you want to connect with a ssh tunnel. Create the use with :
@@ -35,4 +33,5 @@ CREATE USER 'user'@'%' IDENTIFIED BY 'password';
 - Advanced Filtering: The MySQL Source Connector provides a range of filtering options, including table and schema filters, allowing you to selectively replicate specific tables and schemas based on your needs.
 
 ## Security
- The connector supports SSL/TLS encryption for secure communication between the connector and your MySQL database.
+
+The connector supports SSL/TLS encryption for secure communication between the connector and your MySQL database.

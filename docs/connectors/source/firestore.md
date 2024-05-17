@@ -4,6 +4,5 @@ The Firestore Source Connector allows you to easily ingest from the Firestore da
 
 ## Prerequisites
 
-- You may need to whitelist Popsink’s IP address.
 - A Firestore database with existing collections.
 - A Google Cloud service account with the appropriate Firestore database permissions and the JSON key file associated with the service account.

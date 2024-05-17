@@ -4,8 +4,6 @@ The MSSQL Source Connector is a powerful and efficient solution designed to faci
 
 ## Prerequisites
 
-- You may need to whitelist Popsink’s IP address.
-
 - You will need to enable Change Data Capture on the target. [See](https://debezium.io/documentation/reference/stable/connectors/sqlserver.html#_enabling_cdc_on_the_sql_server_database).
 
 - A user with `SELECT` privileges. Members of the `db_owner` group or able to retrieve results from the stored procedure `sys.sp_cdc_help_change_data_capture` on the target work.
@@ -21,4 +19,5 @@ The MSSQL Source Connector is a powerful and efficient solution designed to faci
 - Advanced Filtering: The MSSQL Source Connector provides a range of filtering options, including table and schema filters, allowing you to selectively replicate specific tables and schemas based on your needs.
 
 ## Security
- The connector supports SSL/TLS encryption for secure communication between the connector and your Microsoft SQL Server database.
+
+The connector supports SSL/TLS encryption for secure communication between the connector and your Microsoft SQL Server database.

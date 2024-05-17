@@ -4,8 +4,6 @@ The MongoDB Source Connector is a powerful and efficient solution designed to fa
 
 ## Prerequisites
 
-- You may need to whitelist Popsink’s IP address.
-
 - A `Replica Set` name: a replication set is a group of MongoDB instances sharing the same data and is defined in `replication.replSetName` for each instance in their respective configuration files ([see here](https://www.mongodb.com/docs/manual/replication/#replication-in-mongodb)).
 
 - A user with:
@@ -29,4 +27,5 @@ The MongoDB Source Connector is a powerful and efficient solution designed to fa
 - Advanced Filtering: The MongoDB Source Connector provides a range of filtering options, including table and schema filters, allowing you to selectively replicate specific tables and schemas based on your needs.
 
 ## Security
- The connector supports SSL/TLS encryption for secure communication between the connector and your MongoDB database.
+
+The connector supports SSL/TLS encryption for secure communication between the connector and your MongoDB database.
