@@ -4,15 +4,13 @@ The Postgres Source Connector is a powerful and efficient solution designed to f
 
 ## Prerequisites
 
-- You may need to whitelist Popsink’s IP address.
-
 - Your Postgres should be in `logical` mode (use `SHOW wal_level`). More info here.
 
 - A user with `REPLICATION` rights on the tables you wish to connect to. One way to do this is (for others, check here):
 
 ```sql
 CREATE ROLE replication_role REPLICATION;
- GRANT replication_role TO <your_user>;
+GRANT replication_role TO <your_user>;
 ```
 
 - Are you using PostgreSQL on Heroku? Here’s a great guide to [migrating](https://towardsdatascience.com/migrating-from-heroku-postgres-to-amazon-rds-2e738e7730e5).
@@ -44,4 +42,5 @@ CREATE PUBLICATION popsink FOR TABLE <your table list here>;
 - Advanced Filtering: The Postgres Source Connector provides a range of filtering options, including table and schema filters, allowing you to selectively replicate specific tables and schemas based on your needs.
 
 ## Security
- The connector supports SSL/TLS encryption for secure communication between the connector and your PostgreSQL database.
+
+The connector supports SSL/TLS encryption for secure communication between the connector and your PostgreSQL database.

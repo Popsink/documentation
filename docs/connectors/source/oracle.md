@@ -8,25 +8,25 @@ Before deploying the Oracle Source Connector, certain prerequisites must be met 
 
 1. **Whitelisting Popsink's IP Address**: Ensure that Popsink's IP address **`13.37.99.137`** is whitelisted to allow uninterrupted communication between Oracle databases and Popsink.
 2. **Database Log Mode Configuration**: The Oracle database Archive Mode should be set to ArchiveLog.
-3. **Supplemental Logging**: Supplemental Logs should be enable on the source you wish to replicate. This can me done at Database or Table Level  :
-    - At Database Level
-    
-    ```sql
-    ALTER DATABASE ADD SUPPLEMENTAL LOG DATA;
-    ```
-    
-    - At Table Level
-    
-    ```sql
-    ALTER TABLE **{db.name}** ADD SUPPLEMENTAL LOG DATA (ALL) COLUMNS;
-    ```
-    
-    > Note: If using AWS RDS, additional steps may be required. Please consult the relevant AWS RDS documentation and do feel free to reach out for help.
-    > 
+3. **Supplemental Logging**: Supplemental Logs should be enable on the source you wish to replicate. This can me done at Database or Table Level :
+
+   - At Database Level
+
+   ```sql
+   ALTER DATABASE ADD SUPPLEMENTAL LOG DATA;
+   ```
+
+   - At Table Level
+
+   ```sql
+   ALTER TABLE **{db.name}** ADD SUPPLEMENTAL LOG DATA (ALL) COLUMNS;
+   ```
+
+   > Note: If using AWS RDS, additional steps may be required. Please consult the relevant AWS RDS documentation and do feel free to reach out for help.
 
 ## **Required Permissions**
 
-Although you *could* use a **`superuser`**, we do recommend setting up dedicated users for security reasons. The user account that the Oracle Source Connector utilizes must have sufficient privileges. The following SQL statements outline the necessary permissions:
+Although you _could_ use a **`superuser`**, we do recommend setting up dedicated users for security reasons. The user account that the Oracle Source Connector utilizes must have sufficient privileges. The following SQL statements outline the necessary permissions:
 
 ```sql
 GRANT CREATE SESSION TO {username} CONTAINER=ALL;
@@ -60,9 +60,7 @@ Replace **`{username}`** with the actual username being used for the connection.
 
 Go to: **[Sources](https://app.popsink.com/sources) -**> [**Create New**](https://app.popsink.com/sources/add) then select the **Oracle** connector and **Continue**
 
-In the *Credentials* sections fill in the required information
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/0adb1a06-b847-49c3-875f-e01fc0d1f6e5/d1756040-acaf-48a6-8c6f-df3b3579ec45/Untitled.png)
+In the _Credentials_ sections fill in the required information.
 
 ### **`host`**
 
@@ -110,7 +108,7 @@ In the *Credentials* sections fill in the required information
 
 You can use **Check Credentials** at any moment to verify the validity of your inputs.
 
-Once the validity check has passed, the next step is the standard *Informations* page where you may give the connector a name and select which of your teams should own this connector. 
+Once the validity check has passed, the next step is the standard _Informations_ page where you may give the connector a name and select which of your teams should own this connector.
 
 Create the connector and you are now done. The connector may take a few minutes to synchronize with the source database.
 
