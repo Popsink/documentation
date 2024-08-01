@@ -1,5 +1,4 @@
 # Snowflake Target
-
 The Snowflake Target Connector is a robust tool designed to facilitate the seamless integration of Change Data Capture (CDC) updates into Snowflake data warehouses. Leveraging Snowpipe streaming functionality, this connector efficiently streams CDC updates into Snowflake, where they are written as inserts. Subsequently, a materialized view is employed to construct a copy of the source table, ensuring real-time data replication.
 
 ### Key Features

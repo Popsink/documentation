@@ -1,5 +1,4 @@
 # Oracle Source
-
 The Oracle Source Connector is an advanced tool designed to synchronize Oracle databases with Popsink efficiently and in real-time. It enables the real-time transfer of data, ensuring that the latest database changes are mirrored to the target systems. This capability is crucial for maintaining up-to-date business intelligence, enabling real-time analytics, and enhancing operational workflows.
 
 ## **Prerequisites**
