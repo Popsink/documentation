@@ -6,24 +6,16 @@ The MSSQL Source Connector is a powerful and efficient solution designed to faci
 1. [Key Features](#key-features)
 2. [Security](#security)
 3. [Prerequisites](#prerequisites)
-4. [Prerequisites](#prerequisites)
+4. [Creating a Dedicated Role](#creating-a-dedicated-role)
 5. [Enabling CDC](#enabling-cdc)
-   - [For One Database](#for-one-database)
-   - [For One Table](#for-one-table)
-   - [For Multiple Databases](#for-multiple-databases)
-   - [For Multiple Tables](#for-multiple-tables)
-6. [Disabling CDC](#disabling-cdc)
-   - [For a Database](#for-a-database)
-   - [For a Table](#for-a-table)
-7. [Housekeeping Scripts](#housekeeping-scripts)
-   - [Purging Logs](#purging-logs)
+5. [Housekeeping Scripts](#housekeeping-scripts)
 
 ## Key Features
 
-- Real-time Change Data Capture (CDC): the MSSQL Source Connector employs a CDC mechanism using the native Microsoft SQL Server logical decoding feature, capturing and streaming changes (inserts, updates, and deletes) as they occur in your database.
-- Fault-tolerant and Scalable: The MSSQL Source Connector is built with fault tolerance and scalability in mind. It is capable of resuming data replication from the last known offset in case of failures, ensuring data consistency and minimal downtime.
-- Initial Load: The connector automatically performs an initial full table load.
-- Advanced Filtering: The MSSQL Source Connector provides a range of filtering options, including table and schema filters, allowing you to selectively replicate specific tables and schemas based on your needs.
+- **Real-time Change Data Capture (CDC):** the MSSQL Source Connector employs a CDC mechanism using the native Microsoft SQL Server logical decoding feature, capturing and streaming changes (inserts, updates, and deletes) as they occur in your database.
+- **Fault-tolerant and Scalable:** The MSSQL Source Connector is built with fault tolerance and scalability in mind. It is capable of resuming data replication from the last known offset in case of failures, ensuring data consistency and minimal downtime.
+- **Initial Load:** The connector automatically performs an initial full table load.
+- **Advanced Filtering:** The MSSQL Source Connector provides a range of filtering options, including table and schema filters, allowing you to selectively replicate specific tables and schemas based on your needs.
 
 ## Security
 
@@ -64,7 +56,7 @@ This step creates a dedicated replication ROLE, assigns it to your USER and gran
     GRANT EXECUTE ON SCHEMA::cdc TO cdc_role;
     GO
     ```
-4. **Grant Permissions to Check Version and Encryption:**
+4. **Grant Permissions to Check Version, Encryption, and Track Schema:**
     ```sql
     USE master;
     GO
@@ -158,29 +150,79 @@ Here are a few useful scripts that can help you manage the CDC lifecycle.
 Enabling Logs can take up space on your database so it's best practice to purge them regularly. There is a tradeoff between the log retention and the operational resilience of your replication pipeline. A longer retention means you will more time to recover from outages before having to resync. Shorter retention takes up less space but gives you less time to recover.
 1. **Purge CDC Logs:**
     ```sql
-    USE [{{your_database}}];
+    -- Set the database and the retention period
+    USE YourDatabaseName;
     GO
-    EXEC sys.sp_cdc_cleanup_change_table
-        @capture_instance = 'dbo_{{your_table}}',
-        @low_water_mark = '<LSN>';
+
+    DECLARE @retentionDays INT = 7; -- Set the retention period in days
+
+    -- Convert retention days to a cutoff LSN
+    DECLARE @retentionDateTime DATETIME = DATEADD(DAY, -@retentionDays, GETDATE());
+    DECLARE @cutoffLSN BINARY(10);
+
+    -- Retrieve the minimum LSN based on the retention date
+    SELECT @cutoffLSN = sys.fn_cdc_map_time_to_lsn('smallest greater than or equal', @retentionDateTime);
+
+    -- Check if the cutoff LSN is valid
+    IF @cutoffLSN IS NOT NULL
+    BEGIN
+        DECLARE @capture_instance NVARCHAR(200);
+        DECLARE @sql NVARCHAR(MAX);
+
+        -- Cursor to go through each capture instance
+        DECLARE instance_cursor CURSOR FOR
+        SELECT capture_instance
+        FROM cdc.change_tables;
+
+        OPEN instance_cursor;
+
+        FETCH NEXT FROM instance_cursor INTO @capture_instance;
+
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            -- Generate the cleanup command for each capture instance
+            SET @sql = N'EXEC sys.sp_cdc_cleanup_change_table @capture_instance = ''' + @capture_instance + ''', @low_water_mark = ''' + CONVERT(NVARCHAR(100), @cutoffLSN, 1) + ''';';
+        
+            -- Execute the cleanup command
+            EXEC sp_executesql @sql;
+
+            FETCH NEXT FROM instance_cursor INTO @capture_instance;
+        END;
+
+        CLOSE instance_cursor;
+        DEALLOCATE instance_cursor;
+
+        PRINT 'CDC logs purged successfully up to ' + CONVERT(NVARCHAR(30), @retentionDateTime, 121);
+    END
+    ELSE
+    BEGIN
+        PRINT 'No valid LSN found for the specified retention period.';
+    END
     GO
     ```
 
 ### Check if CDC is Enabled
-1. **Disable CDC on a Database:**
+1. **Check if it is Enabled on a Database:**
+    ```sql
+    USE master
+    GO
+    select name, is_cdc_enabled
+    from sys.databases
+    where name = '{{your_database}}'
+    GO
+    ```
+    0 means CDC is not enabled, 1 means it is.
+   
+3. **Check if it is Enabled on a Table:**
     ```sql
     USE [{{your_database}}];
     GO
-    EXEC sys.sp_cdc_disable_db;
+    select name,type,type_desc,is_tracked_by_cdc
+    from sys.tables
+    where name = ‘<table_name>’
     GO
     ```
-2. **Disable CDC on a Database:**
-    ```sql
-    USE [{{your_database}}];
-    GO
-    EXEC sys.sp_cdc_disable_db;
-    GO
-    ```
+   0 means CDC is not enabled, 1 means it is.
 
 ### Disable CDC
 1. **Disable CDC on a Database:**
@@ -201,8 +243,3 @@ Enabling Logs can take up space on your database so it's best practice to purge 
     GO
     ```
 
-Note: Replace `<LSN>` with the appropriate log sequence number up to which you want to retain the logs.
-
----
-
-This documentation provides a structured guide to managing Change Data Capture (CDC) in SQL Server, covering essential tasks from enabling and disabling CDC to maintaining log files. Each section includes relevant SQL commands to facilitate implementation.
