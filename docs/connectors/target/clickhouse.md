@@ -1,5 +1,4 @@
-# ClickHouse Target 
-
+# ClickHouse Target
 Welcome to the ClickHouse Target Connector documentation. This guide is designed to help you effectively integrate and utilize ClickHouse as a data sink for your CDC (Change Data Capture) data pipelines. The ClickHouse Target Connector allows you to seamlessly transfer data from your tools, applications and services to a ClickHouse database, leveraging its high performance for analytics and large-scale data storage.
 
 ### Overview
