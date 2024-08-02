@@ -148,6 +148,7 @@ Here are a few useful scripts that can help you manage the CDC lifecycle.
 
 ### Purging Logs
 Enabling Logs can take up space on your database so it's best practice to purge them regularly. There is a tradeoff between the log retention and the operational resilience of your replication pipeline. A longer retention means you will need more time to recover from outages before having to resync. Shorter retention takes up less space but gives you less time to recover.
+
 1. **Purge CDC Logs:**
     ```sql
     -- Set the database and the retention period
