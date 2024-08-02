@@ -142,6 +142,71 @@ To enable CDC for your data, you need to do two things: 1) Enable CDC at the Dat
     DEALLOCATE @tables;
     ```
 
+### For All
+1. **Enable CDC on multiple Tables in multiple Databases:**
+    ```sql
+    -- Enable CDC on all databases'
+    DECLARE @dbName NVARCHAR(128);
+    DECLARE @tableName NVARCHAR(128);
+    DECLARE @sql NVARCHAR(MAX);
+
+    -- Cursor for all databases
+    DECLARE db_cursor CURSOR FOR
+    SELECT name
+    FROM sys.databases
+    -- [Optional] WHERE name LIKE 'something-%';
+
+    -- Open the cursor and fetch the first database
+    OPEN db_cursor;
+    FETCH NEXT FROM db_cursor INTO @dbName;
+
+    -- Loop through all databases
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- Enable CDC on the database if not already enabled
+        SET @sql = 'IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = ''' + @dbName + ''' AND is_cdc_enabled = 1)
+                    BEGIN
+                        EXEC(''USE [' + @dbName + ']; EXEC sys.sp_cdc_enable_db'')
+                    END';
+        EXEC sp_executesql @sql;
+
+        -- Cursor for all tables in the current database
+        DECLARE table_cursor CURSOR FOR
+        SELECT QUOTENAME(SCHEMA_NAME(schema_id)) + '.' + QUOTENAME(name)
+        FROM sys.tables
+        WHERE is_tracked_by_cdc = 0; -- Only select tables not already tracked by CDC, you may add more conditions
+
+        -- Open the cursor for tables
+        SET @sql = 'USE [' + @dbName + ']';
+        EXEC sp_executesql @sql;
+    
+        OPEN table_cursor;
+        FETCH NEXT FROM table_cursor INTO @tableName;
+
+        -- Loop through all tables
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            -- Enable CDC on the table
+            SET @sql = 'USE [' + @dbName + ']; EXEC sys.sp_cdc_enable_table @source_schema = N''' + SCHEMA_NAME(schema_id) + ''', @source_name = N''' + @tableName + ''', @role_name = NULL, @supports_net_changes = 1';
+            EXEC sp_executesql @sql;
+
+            -- Fetch the next table
+            FETCH NEXT FROM table_cursor INTO @tableName;
+        END;
+
+        -- Close and deallocate the table cursor
+        CLOSE table_cursor;
+        DEALLOCATE table_cursor;
+
+        -- Fetch the next database
+        FETCH NEXT FROM db_cursor INTO @dbName;
+    END;
+
+    -- Close and deallocate the database cursor
+    CLOSE db_cursor;
+    DEALLOCATE db_cursor;
+    ```
+
 ## Housekeeping Scripts
 
 Here are a few useful scripts that can help you manage the CDC lifecycle.
