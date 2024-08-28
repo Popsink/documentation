@@ -4,6 +4,7 @@ The BigQuery Target Connector enables seamless integration with Google BigQuery,
 
 ## Permissions
 
+- bigquery.tables.get
 - bigquery.tables.create
 - bigquery.tables.delete
 - bigquery.tables.updateData
