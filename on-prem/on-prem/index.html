@@ -1,0 +1,3668 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.popsink.com/on-prem/on-prem/">
+      
+      
+        <link rel="prev" href="../api/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Popsink API Documentation - Easy Step-by-Step Guide - Popsink documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#popsink-api-documentation-easy-step-by-step-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Popsink documentation" class="md-header__button md-logo" aria-label="Popsink documentation" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Popsink documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Popsink API Documentation - Easy Step-by-Step Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Popsink documentation" class="md-nav__button md-logo" aria-label="Popsink documentation" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    Popsink documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Welcome to Popsink Documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../public-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Public api
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Source Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../target/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Target Connectors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Changelog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v1.78/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v1.78 08/02/2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v1.83/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v1.83 18/03/2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v1.84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v1.84 03/04/2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v3.2302/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v3.2302 01/10/2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v3.24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v3.24 14/10/2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v3.29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v3.29 13/11/2024
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v3.7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v3.7 29/01/2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/v3.8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    v3.8 25/03/2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Connectors
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Connectors
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Source
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            Source
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/application/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Application Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/attio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Attio Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/bigquery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BigQuery Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/datagen/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Datagen Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/eventhub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Eventhub Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/firestore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Firestore Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/hubspot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    HubSpot Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/ibmi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IBMi (AS/400) Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/kafka/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Kafka Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MongoDB Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/mssql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MSSQL Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/mysql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MySQL Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/oracle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Oracle Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/postgres/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Postgres Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/salesforce/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Salesforce Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/snowflake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Snowflake source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/source/webhook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Webhook Source
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Target
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Target
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/airtable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Airtable Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/application/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Application Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/bigquery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    BigQuery Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/clickhouse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ClickHouse Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/cosmosdb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CosmosDB Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/deltalake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DeltaLake Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/hubspot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hubspot Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/hudi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hudi Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/ibmi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    IBMi (AS/400) Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/iceberg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Iceberg Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/mongodb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MongoDB Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/mssql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MSSQL Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/mysql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MySQL Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/oracle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Oracle Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/pinecone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pinecone Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/postgres/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Postgres Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/pubsub/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Pubsub Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/slack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Slack Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/snowflake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Snowflake Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/teradata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Teradata Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../connectors/target/webhook/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Webhook Target
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    On prem
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            On prem
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Api
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Popsink API Documentation - Easy Step-by-Step Guide
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Popsink API Documentation - Easy Step-by-Step Guide
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need-to-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      What You Need to Know
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What You Need to Know">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-this-guide-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is this guide for?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-the-api-works-simple-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      How the API Works (Simple Version):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create a User
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Create a User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-log-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Log In
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Log In">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-your-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 How to use your token:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-create-an-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Create an Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Create an Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-you-need-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why you need this:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-create-a-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Create a Team
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Create a Team">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-add-team-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Add Team Members
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Add Team Members">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roles-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roles explained:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-create-another-user-to-invite" class="md-nav__link">
+    <span class="md-ellipsis">
+      First, create another user to invite:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#now-add-them-to-your-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      Now add them to your team:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-create-a-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Create a Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: Create a Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-this-pipeline-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      What this pipeline does:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-update-a-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 7: Update a Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: Update a Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-startstop-a-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 8: Start/Stop a Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 8: Start/Stop a Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-your-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Start your pipeline:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-building-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 What "building" means:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop-pause-your-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⏸️ Stop (pause) your pipeline:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-states-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Pipeline States Explained:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-testing-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative Testing Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alternative Testing Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#other-ways-to-test-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Other Ways to Test the API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Other Ways to Test the API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-postman-recommended-for-beginners" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Postman (Recommended for beginners)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-python-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Python Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-browser-devtools" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Browser DevTools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-httpie-command-line-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. HTTPie (Command line tool)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-reminders" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Important Reminders:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pro-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Pro Tips:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#congratulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Congratulations!
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-you-need-to-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      What You Need to Know
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What You Need to Know">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-this-guide-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is this guide for?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-the-api-works-simple-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      How the API Works (Simple Version):
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-create-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 1: Create a User
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Create a User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-log-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 2: Log In
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Log In">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-use-your-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 How to use your token:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-create-an-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 3: Create an Environment
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Create an Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-you-need-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why you need this:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-create-a-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 4: Create a Team
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Create a Team">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-add-team-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 5: Add Team Members
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Add Team Members">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#roles-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roles explained:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-create-another-user-to-invite" class="md-nav__link">
+    <span class="md-ellipsis">
+      First, create another user to invite:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#now-add-them-to-your-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      Now add them to your team:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-create-a-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 6: Create a Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: Create a Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-this-pipeline-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      What this pipeline does:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-this_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 SAVE THIS:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-update-a-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 7: Update a Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: Update a Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-do-it_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to do it:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-startstop-a-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Step 8: Start/Stop a Pipeline
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 8: Start/Stop a Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youre-doing_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you're doing:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-you-need_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you need:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-your-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Start your pipeline:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-building-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 What "building" means:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stop-pause-your-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⏸️ Stop (pause) your pipeline:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-get-back_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      What you'll get back:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#success_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Success!
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-states-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Pipeline States Explained:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-testing-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative Testing Methods
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Alternative Testing Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#other-ways-to-test-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Other Ways to Test the API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Other Ways to Test the API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-postman-recommended-for-beginners" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Postman (Recommended for beginners)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-python-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Python Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-browser-devtools" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Browser DevTools
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-httpie-command-line-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. HTTPie (Command line tool)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-reminders" class="md-nav__link">
+    <span class="md-ellipsis">
+      📝 Important Reminders:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pro-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Pro Tips:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#congratulations" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎉 Congratulations!
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="popsink-api-documentation-easy-step-by-step-guide">Popsink API Documentation - Easy Step-by-Step Guide</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#what-you-need-to-know">What You Need to Know</a></li>
+<li><a href="#step-1-create-a-user">Step 1: Create a User</a></li>
+<li><a href="#step-2-log-in">Step 2: Log In</a></li>
+<li><a href="#step-3-create-an-environment">Step 3: Create an Environment</a></li>
+<li><a href="#step-4-create-a-team">Step 4: Create a Team</a></li>
+<li><a href="#step-5-add-team-members">Step 5: Add Team Members</a></li>
+<li><a href="#step-6-create-a-pipeline">Step 6: Create a Pipeline</a></li>
+<li><a href="#step-7-update-a-pipeline">Step 7: Update a Pipeline</a></li>
+<li><a href="#step-8-startstop-a-pipeline">Step 8: Start/Stop a Pipeline</a></li>
+<li><a href="#alternative-testing-methods">Alternative Testing Methods</a></li>
+</ol>
+<hr />
+<h2 id="what-you-need-to-know">What You Need to Know</h2>
+<h3 id="what-is-this-guide-for">What is this guide for?</h3>
+<p>This guide shows you exactly how to use the Popsink API to create data pipelines. Think of it like a recipe - follow each step in order and you'll get great results!</p>
+<h3 id="what-youll-need">What you'll need:</h3>
+<ul>
+<li>A computer with internet access</li>
+<li>Basic copy/paste skills</li>
+<li>15 minutes of your time</li>
+</ul>
+<h3 id="important-notes">Important Notes:</h3>
+<ul>
+<li><strong>Server URL</strong>: All examples use <code>https://your-server/api</code> - this is your Popsink server</li>
+<li><strong>Order matters</strong>: Follow steps 1-8 in order for best results</li>
+<li><strong>Save your IDs</strong>: Each step gives you important IDs to use in the next step</li>
+</ul>
+<h3 id="how-the-api-works-simple-version">How the API Works (Simple Version):</h3>
+<ol>
+<li><strong>You ask</strong> → Send a request to the API</li>
+<li><strong>API responds</strong> → Gives you data or confirms your action</li>
+<li><strong>You use the response</strong> → Take the ID from the response to use in the next step</li>
+</ol>
+<p><strong>The Complete Flow:</strong>
+1. Create a user account (like signing up)
+2. Log in to get your "access pass" (token)
+3. Create an environment (your workspace)
+4. Create a team (organize your work)
+5. Add team members (invite people)
+6. Create pipelines (set up data processing)
+7. Control pipelines (start/stop as needed)</p>
+<hr />
+<h2 id="step-1-create-a-user">Step 1: Create a User</h2>
+<h3 id="what-youre-doing">What you're doing:</h3>
+<p>Creating your first user account - like signing up for any website!</p>
+<h3 id="what-you-need">What you need:</h3>
+<ul>
+<li>An email address</li>
+<li>A password</li>
+</ul>
+<h3 id="how-to-do-it">How to do it:</h3>
+<p><strong>Copy this command and paste it into your terminal:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://your-server/api/auth/register&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;email&quot;: &quot;your-email@company.com&quot;,</span>
+<span class="s1">    &quot;password&quot;: &quot;your-password-here&quot;,</span>
+<span class="s1">    &quot;is_active&quot;: true,</span>
+<span class="s1">    &quot;is_superuser&quot;: false,</span>
+<span class="s1">    &quot;is_verified&quot;: false</span>
+<span class="s1">  }&#39;</span><span class="w"> </span>-k
+</code></pre></div></p>
+<p><strong>⚠️ Important:</strong> Replace <code>your-email@company.com</code> and <code>your-password-here</code> with your actual email and password!</p>
+<h3 id="what-youll-get-back">What you'll get back:</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3b0c298a-062e-42d1-a01b-277fa66908da&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;your-email@company.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;is_active&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;is_superuser&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;is_verified&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;active_env_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="save-this">📝 SAVE THIS:</h3>
+<p><strong>User ID:</strong> <code>3b0c298a-062e-42d1-a01b-277fa66908da</code> ← This is an example! Copy YOUR actual User ID from the response above!</p>
+<hr />
+<h2 id="step-2-log-in">Step 2: Log In</h2>
+<h3 id="what-youre-doing_1">What you're doing:</h3>
+<p>Getting your "access pass" (token) so you can use the API.</p>
+<h3 id="how-to-do-it_1">How to do it:</h3>
+<p><strong>Copy and paste this command:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://your-server/api/auth/jwt/login&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/x-www-form-urlencoded&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;username=your-email@company.com&amp;password=your-password-here&#39;</span><span class="w"> </span>-k
+</code></pre></div></p>
+<p><strong>⚠️ Important:</strong> Use the same email and password from Step 1!</p>
+<h3 id="what-youll-get-back_1">What you'll get back:</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bearer&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="save-this_1">📝 SAVE THIS:</h3>
+<p><strong>Your Token:</strong> <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code> ← This is an example! Copy YOUR actual token from the response above!</p>
+<h3 id="how-to-use-your-token">💡 How to use your token:</h3>
+<p>From now on, add this to every command:
+<div class="highlight"><pre><span></span><code>-H &quot;Authorization: Bearer YOUR_TOKEN_HERE&quot;
+</code></pre></div></p>
+<hr />
+<h2 id="step-3-create-an-environment">Step 3: Create an Environment</h2>
+<h3 id="what-youre-doing_2">What you're doing:</h3>
+<p>Creating your workspace - think of it like creating a folder to organize all your work.</p>
+<h3 id="why-you-need-this">Why you need this:</h3>
+<p>Without an environment, you can't create teams or pipelines. It's like needing a building before you can have offices!</p>
+<h3 id="how-to-do-it_2">How to do it:</h3>
+<p><strong>Copy and paste this command:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://your-server/api/envs/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer YOUR_TOKEN_HERE&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;name&quot;: &quot;my-workspace&quot;,</span>
+<span class="s1">    &quot;description&quot;: &quot;My first workspace&quot;,</span>
+<span class="s1">    &quot;use_retention&quot;: true</span>
+<span class="s1">  }&#39;</span><span class="w"> </span>-k
+</code></pre></div></p>
+<p><strong>⚠️ Important:</strong> Replace <code>YOUR_TOKEN_HERE</code> with your actual token from Step 2 (not the example shown above)!</p>
+<h3 id="what-youll-get-back_2">What you'll get back:</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-workspace&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;use_retention&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;retention_configuration&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d455a981-be17-455e-a03c-4d9c3224db72&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="save-this_2">📝 SAVE THIS:</h3>
+<p><strong>Environment ID:</strong> <code>d455a981-be17-455e-a03c-4d9c3224db72</code> ← This is an example! Copy YOUR actual Environment ID from the response above!</p>
+<hr />
+<h2 id="step-4-create-a-team">Step 4: Create a Team</h2>
+<h3 id="what-youre-doing_3">What you're doing:</h3>
+<p>Creating a team to organize your work and invite other people to help.</p>
+<h3 id="what-you-need_1">What you need:</h3>
+<ul>
+<li>Your token from Step 2</li>
+<li>A name for your team</li>
+</ul>
+<h3 id="how-to-do-it_3">How to do it:</h3>
+<p><strong>Copy and paste this command:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://your-server/api/teams/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer YOUR_TOKEN_HERE&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;name&quot;: &quot;My Data Team&quot;,</span>
+<span class="s1">    &quot;description&quot;: &quot;Team for processing our data&quot;</span>
+<span class="s1">  }&#39;</span><span class="w"> </span>-k
+</code></pre></div></p>
+<p><strong>⚠️ Important:</strong> Replace <code>YOUR_TOKEN_HERE</code> with your actual token from Step 2 (not the example shown above)!</p>
+<h3 id="what-youll-get-back_3">What you'll get back:</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Data Team&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Team for processing our data&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;env_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d455a981-be17-455e-a03c-4d9c3224db72&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;881e0fce-5caa-4f5c-82c6-5eb883c47100&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="save-this_3">📝 SAVE THIS:</h3>
+<p><strong>Team ID:</strong> <code>881e0fce-5caa-4f5c-82c6-5eb883c47100</code> ← This is an example! Copy YOUR actual Team ID from the response above!</p>
+<h3 id="success">🎉 Success!</h3>
+<p>Notice how the <code>env_id</code> matches your environment ID? That means your team is properly connected to your workspace!</p>
+<hr />
+<h2 id="step-5-add-team-members">Step 5: Add Team Members</h2>
+<h3 id="what-youre-doing_4">What you're doing:</h3>
+<p>Adding people to your team and giving them different roles.</p>
+<h3 id="what-you-need_2">What you need:</h3>
+<ul>
+<li>Your token from Step 2</li>
+<li>Your team ID from Step 4</li>
+<li>User IDs of people you want to add</li>
+</ul>
+<h3 id="roles-explained">Roles explained:</h3>
+<ul>
+<li><strong>Owners</strong>: Can manage the team and do everything</li>
+<li><strong>Members</strong>: Can use the team and view things</li>
+</ul>
+<h3 id="first-create-another-user-to-invite">First, create another user to invite:</h3>
+<p><strong>Copy and paste this command:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://your-server/api/auth/register&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;email&quot;: &quot;teammate@company.com&quot;,</span>
+<span class="s1">    &quot;password&quot;: &quot;teammatepass123&quot;,</span>
+<span class="s1">    &quot;is_active&quot;: true,</span>
+<span class="s1">    &quot;is_superuser&quot;: false,</span>
+<span class="s1">    &quot;is_verified&quot;: false</span>
+<span class="s1">  }&#39;</span><span class="w"> </span>-k
+</code></pre></div></p>
+<p><strong>You'll get back something like:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;32d4b09d-4527-40d5-923b-e166d85cb459&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;teammate@company.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="err">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h3 id="save-this_4">📝 SAVE THIS:</h3>
+<p><strong>New User ID:</strong> <code>32d4b09d-4527-40d5-923b-e166d85cb459</code> ← This is an example! Copy YOUR actual New User ID from the response above!</p>
+<h3 id="now-add-them-to-your-team">Now add them to your team:</h3>
+<p><strong>Copy and paste this command:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://your-server/api/teams/YOUR_TEAM_ID/members/bulk&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer YOUR_TOKEN_HERE&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;members&quot;: [</span>
+<span class="s1">      &quot;NEW_USER_ID_FROM_ABOVE&quot;</span>
+<span class="s1">    ]</span>
+<span class="s1">  }&#39;</span><span class="w"> </span>-k
+</code></pre></div></p>
+<p><strong>⚠️ Important:</strong> Replace:
+- <code>YOUR_TEAM_ID</code> with your actual team ID from Step 4 (not the example shown)
+- <code>YOUR_TOKEN_HERE</code> with your actual token from Step 2 (not the example shown)
+- <code>NEW_USER_ID_FROM_ABOVE</code> with the actual new user ID you just created (not the example shown)</p>
+<p><strong>💡 Note:</strong> The user who created the team is automatically added as an owner, so you only need to add new members here.</p>
+<h3 id="what-youll-get-back_4">What you'll get back:</h3>
+<p>If successful, you'll get no response (that's normal and means it worked!)</p>
+<h3 id="success_1">🎉 Success!</h3>
+<p>Your team now has members and is ready to create pipelines!</p>
+<hr />
+<h2 id="step-6-create-a-pipeline">Step 6: Create a Pipeline</h2>
+<h3 id="what-youre-doing_5">What you're doing:</h3>
+<p>Creating your first data pipeline! This is where the magic happens - it will move and process your data.</p>
+<h3 id="what-you-need_3">What you need:</h3>
+<ul>
+<li>Your token from Step 2</li>
+<li>Your team ID from Step 4</li>
+</ul>
+<h3 id="what-this-pipeline-does">What this pipeline does:</h3>
+<ul>
+<li><strong>Source</strong>: Reads data from Kafka (a messaging system)</li>
+<li><strong>Target</strong>: Writes data to Oracle (a database)</li>
+<li><strong>Transform</strong>: Processes the data between source and target</li>
+</ul>
+<h3 id="how-to-do-it_4">How to do it:</h3>
+<p><strong>Copy and paste this command:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://your-server/api/pipelines/&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer YOUR_TOKEN_HERE&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;name&quot;: &quot;My First Pipeline&quot;,</span>
+<span class="s1">    &quot;team_id&quot;: &quot;YOUR_TEAM_ID&quot;,</span>
+<span class="s1">    &quot;state&quot;: &quot;draft&quot;,</span>
+<span class="s1">    &quot;json_configuration&quot;: {</span>
+<span class="s1">      &quot;source_name&quot;: &quot;kafka-source&quot;,</span>
+<span class="s1">      &quot;source_type&quot;: &quot;kafka_source&quot;,</span>
+<span class="s1">      &quot;source_config&quot;: {</span>
+<span class="s1">        &quot;topic&quot;: &quot;user-events&quot;,</span>
+<span class="s1">        &quot;bootstrap_servers&quot;: &quot;localhost:9092&quot;,</span>
+<span class="s1">        &quot;consumer_group_id&quot;: &quot;events-consumer-group&quot;,</span>
+<span class="s1">        &quot;sasl_username&quot;: &quot;kafka_user&quot;,</span>
+<span class="s1">        &quot;sasl_password&quot;: &quot;kafka_password&quot;,</span>
+<span class="s1">        &quot;sasl_mechanism&quot;: &quot;PLAIN&quot;,</span>
+<span class="s1">        &quot;security_protocol&quot;: &quot;SASL_SSL&quot;,</span>
+<span class="s1">        &quot;include_metadata&quot;: false</span>
+<span class="s1">      },</span>
+<span class="s1">      &quot;target_name&quot;: &quot;oracle-target&quot;,</span>
+<span class="s1">      &quot;target_type&quot;: &quot;oracle_target&quot;,</span>
+<span class="s1">      &quot;target_config&quot;: {</span>
+<span class="s1">        &quot;database&quot;: &quot;ORCL&quot;,</span>
+<span class="s1">        &quot;user&quot;: &quot;oracle_user&quot;,</span>
+<span class="s1">        &quot;password&quot;: &quot;oracle_password&quot;,</span>
+<span class="s1">        &quot;host&quot;: &quot;localhost&quot;,</span>
+<span class="s1">        &quot;port&quot;: &quot;1521&quot;,</span>
+<span class="s1">        &quot;server_name&quot;: &quot;XE&quot;,</span>
+<span class="s1">        &quot;server_id&quot;: &quot;oraclesrv01&quot;</span>
+<span class="s1">      },</span>
+<span class="s1">      &quot;smt_name&quot;: &quot;basic-transform&quot;,</span>
+<span class="s1">      &quot;smt_config&quot;: [],</span>
+<span class="s1">      &quot;draft_step&quot;: &quot;config&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }&#39;</span><span class="w"> </span>-k
+</code></pre></div></p>
+<p><strong>⚠️ Important:</strong> Replace:
+- <code>YOUR_TOKEN_HERE</code> with your actual token from Step 2 (not the example shown)
+- <code>YOUR_TEAM_ID</code> with your actual team ID from Step 4 (not the example shown)</p>
+<h3 id="what-youll-get-back_5">What you'll get back:</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My First Pipeline&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;draft&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;json_configuration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5efd3d63-a6eb-4b0c-afe9-6ee1d8f5f820&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Data Team&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;881e0fce-5caa-4f5c-82c6-5eb883c47100&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="save-this_5">📝 SAVE THIS:</h3>
+<p><strong>Pipeline ID:</strong> <code>5efd3d63-a6eb-4b0c-afe9-6ee1d8f5f820</code> ← This is an example! Copy YOUR actual Pipeline ID from the response above!</p>
+<h3 id="success_2">🎉 Success!</h3>
+<p>Your pipeline is created and ready to be configured and started!</p>
+<hr />
+<h2 id="step-7-update-a-pipeline">Step 7: Update a Pipeline</h2>
+<h3 id="what-youre-doing_6">What you're doing:</h3>
+<p>Changing your pipeline settings - like editing a document after you've written it.</p>
+<h3 id="what-you-need_4">What you need:</h3>
+<ul>
+<li>Your token from Step 2</li>
+<li>Your pipeline ID from Step 6</li>
+</ul>
+<h3 id="how-to-do-it_5">How to do it:</h3>
+<p><strong>Copy and paste this command:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PATCH<span class="w"> </span><span class="s2">&quot;https://your-server/api/pipelines/YOUR_PIPELINE_ID&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer YOUR_TOKEN_HERE&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;name&quot;: &quot;Updated Pipeline Name&quot;,</span>
+<span class="s1">    &quot;json_configuration&quot;: {</span>
+<span class="s1">      &quot;source_name&quot;: &quot;updated-kafka-source&quot;,</span>
+<span class="s1">      &quot;source_type&quot;: &quot;kafka_source&quot;,</span>
+<span class="s1">      &quot;source_config&quot;: {</span>
+<span class="s1">        &quot;topic&quot;: &quot;updated-topic&quot;,</span>
+<span class="s1">        &quot;bootstrap_servers&quot;: &quot;localhost:9092&quot;,</span>
+<span class="s1">        &quot;consumer_group_id&quot;: &quot;updated-consumer-group&quot;,</span>
+<span class="s1">        &quot;sasl_username&quot;: &quot;updated_user&quot;,</span>
+<span class="s1">        &quot;sasl_password&quot;: &quot;updated_password&quot;,</span>
+<span class="s1">        &quot;sasl_mechanism&quot;: &quot;PLAIN&quot;,</span>
+<span class="s1">        &quot;security_protocol&quot;: &quot;SASL_SSL&quot;,</span>
+<span class="s1">        &quot;include_metadata&quot;: false</span>
+<span class="s1">      },</span>
+<span class="s1">      &quot;target_name&quot;: &quot;updated-oracle-target&quot;,</span>
+<span class="s1">      &quot;target_type&quot;: &quot;oracle_target&quot;,</span>
+<span class="s1">      &quot;target_config&quot;: {</span>
+<span class="s1">        &quot;database&quot;: &quot;ORCL&quot;,</span>
+<span class="s1">        &quot;user&quot;: &quot;updated_oracle_user&quot;,</span>
+<span class="s1">        &quot;password&quot;: &quot;updated_oracle_password&quot;,</span>
+<span class="s1">        &quot;host&quot;: &quot;localhost&quot;,</span>
+<span class="s1">        &quot;port&quot;: &quot;1521&quot;,</span>
+<span class="s1">        &quot;server_name&quot;: &quot;XE&quot;,</span>
+<span class="s1">        &quot;server_id&quot;: &quot;oraclesrv01&quot;</span>
+<span class="s1">      },</span>
+<span class="s1">      &quot;smt_name&quot;: &quot;updated-transform&quot;,</span>
+<span class="s1">      &quot;smt_config&quot;: [],</span>
+<span class="s1">      &quot;draft_step&quot;: &quot;config&quot;</span>
+<span class="s1">    }</span>
+<span class="s1">  }&#39;</span><span class="w"> </span>-k
+</code></pre></div></p>
+<p><strong>⚠️ Important:</strong> Replace:
+- <code>YOUR_PIPELINE_ID</code> with your actual pipeline ID from Step 6 (not the example shown)
+- <code>YOUR_TOKEN_HERE</code> with your actual token from Step 2 (not the example shown)</p>
+<h3 id="what-youll-get-back_6">What you'll get back:</h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Updated Pipeline Name&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;draft&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;json_configuration&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5efd3d63-a6eb-4b0c-afe9-6ee1d8f5f820&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Data Team&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;team_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;881e0fce-5caa-4f5c-82c6-5eb883c47100&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="success_3">🎉 Success!</h3>
+<p>Your pipeline has been updated with the new settings!</p>
+<hr />
+<h2 id="step-8-startstop-a-pipeline">Step 8: Start/Stop a Pipeline</h2>
+<h3 id="what-youre-doing_7">What you're doing:</h3>
+<p>Controlling your pipeline - like turning a machine on and off.</p>
+<h3 id="what-you-need_5">What you need:</h3>
+<ul>
+<li>Your token from Step 2</li>
+<li>Your pipeline ID from Step 6</li>
+</ul>
+<h3 id="start-your-pipeline">🚀 Start your pipeline:</h3>
+<p><strong>Copy and paste this command:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://your-server/api/pipelines/YOUR_PIPELINE_ID/start&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer YOUR_TOKEN_HERE&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-k
+</code></pre></div></p>
+<p><strong>⚠️ Important:</strong> Replace:
+- <code>YOUR_PIPELINE_ID</code> with your actual pipeline ID from Step 6 (not the example shown)
+- <code>YOUR_TOKEN_HERE</code> with your actual token from Step 2 (not the example shown)</p>
+<h3 id="what-youll-get-back_7">What you'll get back:</h3>
+<div class="highlight"><pre><span></span><code>&quot;building&quot;
+</code></pre></div>
+<h3 id="what-building-means">💡 What "building" means:</h3>
+<p>Your pipeline is starting up and getting ready to process data. This is normal!</p>
+<h3 id="stop-pause-your-pipeline">⏸️ Stop (pause) your pipeline:</h3>
+<p><strong>Copy and paste this command:</strong>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="s2">&quot;https://your-server/api/pipelines/YOUR_PIPELINE_ID/pause&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer YOUR_TOKEN_HERE&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-k
+</code></pre></div></p>
+<p><strong>⚠️ Important:</strong> Replace:
+- <code>YOUR_PIPELINE_ID</code> with your actual pipeline ID from Step 6 (not the example shown)
+- <code>YOUR_TOKEN_HERE</code> with your actual token from Step 2 (not the example shown)</p>
+<h3 id="what-youll-get-back_8">What you'll get back:</h3>
+<div class="highlight"><pre><span></span><code>&quot;paused&quot;
+</code></pre></div>
+<h3 id="success_4">🎉 Success!</h3>
+<p>You now know how to start and stop your data pipeline!</p>
+<h3 id="pipeline-states-explained">📊 Pipeline States Explained:</h3>
+<ul>
+<li><strong>draft</strong>: Pipeline is being designed</li>
+<li><strong>building</strong>: Pipeline is starting up</li>
+<li><strong>live</strong>: Pipeline is running and processing data</li>
+<li><strong>paused</strong>: Pipeline is stopped</li>
+<li><strong>error</strong>: Pipeline has a problem (check logs)</li>
+</ul>
+<hr />
+<h2 id="alternative-testing-methods">Alternative Testing Methods</h2>
+<h3 id="other-ways-to-test-the-api">🛠️ Other Ways to Test the API</h3>
+<p>If you don't want to use curl commands, you can use these tools:</p>
+<h4 id="1-postman-recommended-for-beginners">1. <strong>Postman</strong> (Recommended for beginners)</h4>
+<ul>
+<li>Download Postman (free)</li>
+<li>Create a new request</li>
+<li>Set the method (GET, POST, PATCH)</li>
+<li>Add the URL: <code>https://your-server/api/...</code></li>
+<li>Add headers: <code>Authorization: Bearer YOUR_TOKEN</code></li>
+<li>Add JSON body for POST/PATCH requests</li>
+<li>Click Send!</li>
+</ul>
+<h4 id="2-python-script">2. <strong>Python Script</strong></h4>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="c1"># Your token from Step 2</span>
+<span class="n">token</span> <span class="o">=</span> <span class="s2">&quot;YOUR_TOKEN_HERE&quot;</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+
+<span class="c1"># Example: Get all pipelines</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://your-server/api/pipelines/&quot;</span><span class="p">,</span> 
+                       <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</code></pre></div>
+<h4 id="3-browser-devtools">3. <strong>Browser DevTools</strong></h4>
+<ul>
+<li>Open your browser</li>
+<li>Go to any website</li>
+<li>Press F12 to open DevTools</li>
+<li>Go to Console tab</li>
+<li>Paste JavaScript code like:
+<div class="highlight"><pre><span></span><code><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;https://your-server/api/pipelines/&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;Authorization&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Bearer YOUR_TOKEN_HERE&#39;</span><span class="p">}</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+</code></pre></div></li>
+</ul>
+<h4 id="4-httpie-command-line-tool">4. <strong>HTTPie</strong> (Command line tool)</h4>
+<div class="highlight"><pre><span></span><code>http<span class="w"> </span>GET<span class="w"> </span>https://your-server/api/pipelines/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>Authorization:<span class="s2">&quot;Bearer YOUR_TOKEN_HERE&quot;</span>
+</code></pre></div>
+<h3 id="important-reminders">📝 Important Reminders:</h3>
+<p>When using any method, remember to:
+- Replace <code>YOUR_TOKEN_HERE</code> with your actual token (not the examples shown in this guide)
+- Replace all example UUIDs with your actual IDs from the API responses
+- Use <code>https://your-server/api</code> as the base URL
+- Follow the 8 steps in order
+- Save all the IDs you get back from YOUR actual API responses</p>
+<h3 id="pro-tips">🎯 Pro Tips:</h3>
+<ol>
+<li><strong>Start with curl</strong>: It's included on most computers</li>
+<li><strong>Use Postman</strong>: If you want a visual interface</li>
+<li><strong>Try Python</strong>: If you want to automate multiple steps</li>
+<li><strong>Save your work</strong>: Keep a text file with all your actual IDs and tokens (not the examples from this guide)</li>
+</ol>
+<hr />
+<h2 id="congratulations">🎉 Congratulations!</h2>
+<p>You've learned how to:
+- ✅ Create user accounts
+- ✅ Log in and get tokens
+- ✅ Create environments (workspaces)
+- ✅ Create teams
+- ✅ Add team members
+- ✅ Create data pipelines
+- ✅ Update pipelines
+- ✅ Start and stop pipelines</p>
+<p>You're now ready to build amazing data processing pipelines with Popsink! 🚀</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+        <script src="../../javascripts/crisp.js"></script>
+      
+    
+  </body>
+</html>
