@@ -12,34 +12,34 @@ and start experimenting with your new DB2 system.
 
 If not, you've already got a DB2 system in place, and you want to replicate it, please continue. 
 
-## 1) Prerequisites
+## 1. Prerequisites
 
 In this important step, the user goes through a check-list of actions that need to be taken before moving on to the next
 steps. Not everything can be setup through the user interface, often for security reasons.
 
 ![image](./prerequisites.png)
 
-### 1) Enable Journaling
+### 1.1 Enable Journaling
 
 It's a vital step to capture changes from the source databases with no additional overhead. Please head to [journaling](./journaling.md), 
 if you need help setting it up on your DB2 environment.
 
 Take notes of the journaled tables you'd like to replicate.
 
-### 2) Review network access
+### 1.2 Review network access
 
 In a later step, the app will generate SQL commands that only a user with ```ACCOUNTADMIN``` privileges can run. 
 This will open network access to the source database. Please make sure your administrator is informed that the app needs 
 access to all the port of the source database.
 
-### 3) Find an available name for the target database
+### 1.3 Find an available name for the target database
 
 Snowflake's security prevents an app to list all the existing databases and schemas. That's why your administrator needs to run
 ```SHOW DATABASES``` to confirm that your choice of target database name is valid.
 
 When you're ready you can mark the prerequisites as **'Completed'** and move to the next step.
 
-## 2) Connector's Configuration
+## 2. Connector's Configuration
 On this page, you will configure a few simple but essential settings :
 
 - Grant privileges to create the target database and run synchronization tasks.
@@ -51,7 +51,7 @@ On this page, you will configure a few simple but essential settings :
 
 When you're finished, click on **'Configure'**.
 
-## 3) Firewall & Credentials Configuration
+## 3. Firewall & Credentials Configuration
 
 Next step is to set up your connection to your source IBMi system. You will need 2 things :
 
@@ -73,7 +73,7 @@ it.
 
 When you're ready to test the connection and move to the next step, click on **'Next'**.
 
-## 4) DB2 Connection's Configuration
+## 4. DB2 Connection's Configuration
 
 Now your connection to DB2 is valid, it's time to define the source data you want to replicate in this simple step :
 
@@ -86,7 +86,7 @@ Click on **'Connect'** to move to the last step.
 
 ![image](./connection.png)
 
-## 5) Finalize
+## 5. Finalize
 
 To finish with, a few settings can be modified before starting the replication :
 

@@ -19,7 +19,7 @@ It's therefore an entirely different platform than traditional PC computers. It'
 It’s basically a playground for IBMi: a system running IBMi version 7.5, made accessible to the community so people can try out IBMi tools, 
 write programs (RPG, COBOL, CL, SQL, etc.), use open‑source/modern tooling, and generally build skills.
 
-## 1) PUB400.com sign-up & connection test
+## 1. PUB400.com sign-up & connection test
 
 Opening a free account is really easy, head to sign-up page and fill up this form :
 
@@ -51,7 +51,7 @@ Now the result will look like this
 That's great, it means that PUB400 has already created a sample schema called ```${YOUR_USERNAME}1```
 
 
-## 2) SQL connection
+## 2. SQL connection
 IBMi has an embedded DB2 SQL database tightly coupled with the system. Tables are files and vice versa. That's why, 
 there's no need to install a SQL server.
 
@@ -68,7 +68,7 @@ connection string is simply ```jdbc:as400://pub400.COM;libraries={YOUR_USERNAME}
 Time to build our first test database. This database will be used later on to do replication tests with Snowflake.
 Run the following creation script :
 
-```
+```oracle-sql
 -- 1. Categories Table
 CREATE TABLE Categories (
     CategoryID INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) PRIMARY KEY,
@@ -135,7 +135,7 @@ CREATE TABLE Sales (
 
 Now let's insert simulated data :
 
-```
+```oracle-sql
 INSERT INTO Categories (CategoryName, Description) VALUES
 ('Electronics', 'Devices and gadgets'),
 ('Groceries', 'Daily consumables and food items'),
@@ -167,7 +167,6 @@ INSERT INTO Sales (ProductID, Quantity, SaleDate, UnitPrice) VALUES
 (1, 50, DATE('2025-09-18'), 14.99),
 (2, 100, DATE('2025-09-19'), 3.99),
 (3, 250, DATE('2025-09-20'), 1.50);
-
 ```
 
 ## What's next ?
