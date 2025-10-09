@@ -5,7 +5,7 @@ The Oracle Source Connector is an advanced tool designed to synchronize Oracle d
 
 Before deploying the Oracle Source Connector, certain prerequisites must be met to ensure a smooth integration process:
 
-1. **Whitelisting Popsink's IP Address**: Ensure that Popsink's IP address **`13.37.99.137`** is whitelisted to allow uninterrupted communication between Oracle databases and Popsink.
+1. **Whitelisting Popsink's IP Address**: Ensure that Popsink's IP address is whitelisted to allow uninterrupted communication between Oracle databases and Popsink.
 2. **Database Log Mode Configuration**: The Oracle database Archive Mode should be set to ArchiveLog.
 3. **Supplemental Logging**: Supplemental Logs should be enable on the source you wish to replicate. This can me done at Database or Table Level :
 
