@@ -1,81 +1,183 @@
-# Popsink API Documentation - Easy Step-by-Step Guide
+# Popsink API - Complete Getting Started Guide
 
-## Table of Contents
-1. [What You Need to Know](#what-you-need-to-know)
-2. [Step 1: Create a User](#step-1-create-a-user)
-3. [Step 2: Log In](#step-2-log-in)
-4. [Step 3: Create an Environment](#step-3-create-an-environment)
-5. [Step 4: Create a Team](#step-4-create-a-team)
-6. [Step 5: Add Team Members](#step-5-add-team-members)
-7. [Step 6: Create a Pipeline](#step-6-create-a-pipeline)
-8. [Step 7: Update a Pipeline](#step-7-update-a-pipeline)
-9. [Step 8: Start/Stop a Pipeline](#step-8-startstop-a-pipeline)
-10. [Alternative Testing Methods](#alternative-testing-methods)
+> **Last Updated:** 2025-11-19
+> **API Version:** v2 (with flattened pipeline configuration)
 
 ---
 
-## What You Need to Know
+## 📋 Table of Contents
 
-### What is this guide for?
-This guide shows you exactly how to use the Popsink API to create data pipelines. Think of it like a recipe - follow each step in order and you'll get great results!
-
-### What you'll need:
-- A computer with internet access
-- Basic copy/paste skills
-- 15 minutes of your time
-
-### Important Notes:
-- **Server URL**: All examples use `https://your-server/api` - this is your Popsink server
-- **Order matters**: Follow steps 1-8 in order for best results
-- **Save your IDs**: Each step gives you important IDs to use in the next step
-
-### How the API Works (Simple Version):
-1. **You ask** → Send a request to the API
-2. **API responds** → Gives you data or confirms your action
-3. **You use the response** → Take the ID from the response to use in the next step
-
-**The Complete Flow:**
-1. Create a user account (like signing up)
-2. Log in to get your "access pass" (token)
-3. Create an environment (your workspace)
-4. Create a team (organize your work)
-5. Add team members (invite people)
-6. Create pipelines (set up data processing)
-7. Control pipelines (start/stop as needed)
+1. [Quick Start](#quick-start)
+2. [Prerequisites](#prerequisites)
+3. [API Overview](#api-overview)
+4. [Authentication Flow](#authentication-flow)
+5. [Step-by-Step Tutorial](#step-by-step-tutorial)
+   - [1. User Registration](#step-1-user-registration)
+   - [2. User Login](#step-2-user-login)
+   - [3. Environment Setup](#step-3-environment-setup)
+   - [4. Team Creation](#step-4-team-creation)
+   - [5. Team Member Management](#step-5-team-member-management)
+   - [6. Pipeline Creation](#step-6-pipeline-creation)
+   - [7. Pipeline Updates](#step-7-pipeline-updates)
+   - [8. Pipeline Control](#step-8-pipeline-control)
+6. [Testing Tools](#testing-tools)
+7. [API Reference](#api-reference)
+8. [Connector Configurations](#connector-configurations)
+9. [Common Patterns](#common-patterns)
+10. [Troubleshooting](#troubleshooting)
 
 ---
 
-## Step 1: Create a User
+## 🚀 Quick Start
 
-### What you're doing:
-Creating your first user account - like signing up for any website!
+**For the impatient:** Here's the minimum you need to know:
 
-### What you need:
-- An email address
-- A password
+```bash
+# 1. Create a user
+curl -X POST "https://your-server/api/auth/register" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"secure123","is_active":true}' -k
 
-### How to do it:
+# 2. Login to get your token
+curl -X POST "https://your-server/api/auth/jwt/login" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d 'username=user@example.com&password=secure123' -k
 
-**Copy this command and paste it into your terminal:**
+# 3. Use the token in all subsequent requests
+curl -X GET "https://your-server/api/pipelines/" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" -k
+```
+
+---
+
+## ✅ Prerequisites
+
+### What You Need
+
+- **Access to a Popsink server** (e.g., `https://popsink.your-company.com`)
+- **A terminal or API client** (curl, Postman, HTTPie, etc.)
+- **5-15 minutes** to complete this guide
+
+### Basic Concepts
+
+| Concept | Description |
+|---------|-------------|
+| **Environment** | A workspace that contains teams and their resources |
+| **Team** | A group of users working together on pipelines |
+| **Pipeline** | A data processing flow from source to target |
+| **Connector** | A connection to a data source or destination |
+| **Subscription** | Configuration for how data flows through a pipeline |
+| **DataModel** | Schema and configuration for data transformation |
+
+---
+
+## 🔍 API Overview
+
+### Base URL Structure
+
+```
+https://your-server/api/
+```
+
+### Authentication
+
+All API endpoints (except registration and login) require a **Bearer token** in the `Authorization` header:
+
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### Response Format
+
+All responses are in **JSON** format:
+
+```json
+{
+  "id": "uuid-here",
+  "name": "resource-name",
+  "created_at": "2025-11-19T10:00:00Z"
+}
+```
+
+### HTTP Status Codes
+
+| Code | Meaning | When You'll See It |
+|------|---------|-------------------|
+| `200` | Success | GET, PATCH operations |
+| `201` | Created | POST operations that create resources |
+| `202` | Accepted | Async operations (start/pause pipeline) |
+| `204` | No Content | DELETE operations |
+| `400` | Bad Request | Invalid input data |
+| `401` | Unauthorized | Missing or invalid token |
+| `403` | Forbidden | Insufficient permissions |
+| `404` | Not Found | Resource doesn't exist |
+| `422` | Validation Error | Data doesn't meet requirements |
+
+---
+
+## 🔐 Authentication Flow
+
+```
+┌─────────────┐
+│   Register  │  POST /auth/register
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    Login    │  POST /auth/jwt/login
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Get Token  │  Save this token!
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│  Use Token  │  All API requests
+└─────────────┘
+```
+
+---
+
+## 📖 Step-by-Step Tutorial
+
+### Step 1: User Registration
+
+**What:** Create your user account
+**When:** First time using the API
+**Required:** Email and password
+
+#### Request
+
 ```bash
 curl -X POST "https://your-server/api/auth/register" \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "your-email@company.com",
-    "password": "your-password-here",
+    "email": "john.doe@company.com",
+    "password": "MySecurePassword123!",
     "is_active": true,
     "is_superuser": false,
     "is_verified": false
   }' -k
 ```
 
-**⚠️ Important:** Replace `your-email@company.com` and `your-password-here` with your actual email and password!
+#### Field Descriptions
 
-### What you'll get back:
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `email` | string | ✅ | Your email address (must be unique) |
+| `password` | string | ✅ | Your password (min 8 characters recommended) |
+| `is_active` | boolean | ✅ | Set to `true` to activate the account immediately |
+| `is_superuser` | boolean | ⬜ | Admin privileges (default: `false`) |
+| `is_verified` | boolean | ⬜ | Email verification status (default: `false`) |
+
+#### Response (201 Created)
+
 ```json
 {
   "id": "3b0c298a-062e-42d1-a01b-277fa66908da",
-  "email": "your-email@company.com",
+  "email": "john.doe@company.com",
   "is_active": true,
   "is_superuser": false,
   "is_verified": false,
@@ -83,484 +185,1445 @@ curl -X POST "https://your-server/api/auth/register" \
 }
 ```
 
-### 📝 SAVE THIS:
-**User ID:** `3b0c298a-062e-42d1-a01b-277fa66908da` ← This is an example! Copy YOUR actual User ID from the response above!
+#### 📝 Save This
+
+```
+USER_ID=3b0c298a-062e-42d1-a01b-277fa66908da
+EMAIL=john.doe@company.com
+PASSWORD=MySecurePassword123!
+```
 
 ---
 
-## Step 2: Log In
+### Step 2: User Login
 
-### What you're doing:
-Getting your "access pass" (token) so you can use the API.
+**What:** Authenticate and get your access token
+**When:** Before making any authenticated API calls
+**Token Lifetime:** Configurable (typically 24 hours)
 
-### How to do it:
+#### Request
 
-**Copy and paste this command:**
 ```bash
 curl -X POST "https://your-server/api/auth/jwt/login" \
   -H "Content-Type: application/x-www-form-urlencoded" \
-  -d 'username=your-email@company.com&password=your-password-here' -k
+  -d 'username=john.doe@company.com&password=MySecurePassword123!' -k
 ```
 
-**⚠️ Important:** Use the same email and password from Step 1!
+#### Response (200 OK)
 
-### What you'll get back:
 ```json
 {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzYjBjMjk4YS0wNjJlLTQyZDEtYTAxYi0yNzdmYTY2OTA4ZGEiLCJhdWQiOlsiZmFzdGFwaS11c2VyczphdXRoIl0sImV4cCI6MTcwMDAwMDAwMH0.signature",
   "token_type": "bearer"
 }
 ```
 
-### 📝 SAVE THIS:
-**Your Token:** `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` ← This is an example! Copy YOUR actual token from the response above!
+#### 📝 Save This
 
-### 💡 How to use your token:
-From now on, add this to every command:
 ```
--H "Authorization: Bearer YOUR_TOKEN_HERE"
+TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+#### Using Your Token
+
+From now on, include this header in **every request**:
+
+```bash
+-H "Authorization: Bearer $TOKEN"
 ```
 
 ---
 
-## Step 3: Create an Environment
+### Step 3: Environment Setup
 
-### What you're doing:
-Creating your workspace - think of it like creating a folder to organize all your work.
+**What:** Create a workspace for your teams and pipelines
+**When:** After logging in, before creating teams
+**Permissions:** Any authenticated user can create an environment
 
-### Why you need this:
-Without an environment, you can't create teams or pipelines. It's like needing a building before you can have offices!
+#### Request
 
-### How to do it:
-
-**Copy and paste this command:**
 ```bash
 curl -X POST "https://your-server/api/envs/" \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "my-workspace",
-    "description": "My first workspace",
+    "name": "production-environment",
+    "description": "Production data processing environment",
     "use_retention": true
   }' -k
 ```
 
-**⚠️ Important:** Replace `YOUR_TOKEN_HERE` with your actual token from Step 2 (not the example shown above)!
+#### Field Descriptions
 
-### What you'll get back:
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | ✅ | Environment name (must be unique) |
+| `description` | string | ⬜ | Description of the environment's purpose |
+| `use_retention` | boolean | ⬜ | Enable data retention policies (default: `false`) |
+
+#### Response (201 Created)
+
 ```json
 {
-  "name": "my-workspace",
+  "id": "d455a981-be17-455e-a03c-4d9c3224db72",
+  "name": "production-environment",
+  "description": "Production data processing environment",
   "use_retention": true,
-  "retention_configuration": null,
-  "id": "d455a981-be17-455e-a03c-4d9c3224db72"
+  "retention_configuration": null
 }
 ```
 
-### 📝 SAVE THIS:
-**Environment ID:** `d455a981-be17-455e-a03c-4d9c3224db72` ← This is an example! Copy YOUR actual Environment ID from the response above!
+#### 📝 Save This
+
+```
+ENV_ID=d455a981-be17-455e-a03c-4d9c3224db72
+```
 
 ---
 
-## Step 4: Create a Team
+### Step 4: Team Creation
 
-### What you're doing:
-Creating a team to organize your work and invite other people to help.
+**What:** Create a team within your environment
+**When:** After creating an environment
+**Ownership:** The creator automatically becomes a team owner
 
-### What you need:
-- Your token from Step 2
-- A name for your team
+#### Request
 
-### How to do it:
-
-**Copy and paste this command:**
 ```bash
 curl -X POST "https://your-server/api/teams/" \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "My Data Team",
-    "description": "Team for processing our data"
+    "name": "Data Engineering Team",
+    "description": "Team responsible for ETL pipelines"
   }' -k
 ```
 
-**⚠️ Important:** Replace `YOUR_TOKEN_HERE` with your actual token from Step 2 (not the example shown above)!
+#### Field Descriptions
 
-### What you'll get back:
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | ✅ | Team name (unique within environment) |
+| `description` | string | ⬜ | Purpose and responsibilities of the team |
+
+#### Response (201 Created)
+
 ```json
 {
-  "name": "My Data Team",
-  "description": "Team for processing our data",
-  "env_id": "d455a981-be17-455e-a03c-4d9c3224db72",
-  "id": "881e0fce-5caa-4f5c-82c6-5eb883c47100"
+  "id": "881e0fce-5caa-4f5c-82c6-5eb883c47100",
+  "name": "Data Engineering Team",
+  "description": "Team responsible for ETL pipelines",
+  "env_id": "d455a981-be17-455e-a03c-4d9c3224db72"
 }
 ```
 
-### 📝 SAVE THIS:
-**Team ID:** `881e0fce-5caa-4f5c-82c6-5eb883c47100` ← This is an example! Copy YOUR actual Team ID from the response above!
+#### 📝 Save This
 
-### 🎉 Success!
-Notice how the `env_id` matches your environment ID? That means your team is properly connected to your workspace!
+```
+TEAM_ID=881e0fce-5caa-4f5c-82c6-5eb883c47100
+```
 
 ---
 
-## Step 5: Add Team Members
+### Step 5: Team Member Management
 
-### What you're doing:
-Adding people to your team and giving them different roles.
+**What:** Add users to your team
+**When:** After creating a team
+**Permissions:** Only team owners can add members
 
-### What you need:
-- Your token from Step 2
-- Your team ID from Step 4
-- User IDs of people you want to add
+#### 5.1: Create Additional Users (Optional)
 
-### Roles explained:
-- **Owners**: Can manage the team and do everything
-- **Members**: Can use the team and view things
+If you need to invite teammates, first create their accounts:
 
-### First, create another user to invite:
-
-**Copy and paste this command:**
 ```bash
 curl -X POST "https://your-server/api/auth/register" \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "teammate@company.com",
-    "password": "teammatepass123",
-    "is_active": true,
-    "is_superuser": false,
-    "is_verified": false
+    "email": "jane.smith@company.com",
+    "password": "SecurePass456!",
+    "is_active": true
   }' -k
 ```
 
-**You'll get back something like:**
+**Response:**
 ```json
 {
   "id": "32d4b09d-4527-40d5-923b-e166d85cb459",
-  "email": "teammate@company.com",
-  ...
+  "email": "jane.smith@company.com",
+  "is_active": true
 }
 ```
 
-### 📝 SAVE THIS:
-**New User ID:** `32d4b09d-4527-40d5-923b-e166d85cb459` ← This is an example! Copy YOUR actual New User ID from the response above!
+#### 5.2: Add Members to Team
 
-### Now add them to your team:
-
-**Copy and paste this command:**
 ```bash
-curl -X POST "https://your-server/api/teams/YOUR_TEAM_ID/members/bulk" \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+curl -X POST "https://your-server/api/teams/$TEAM_ID/members/bulk" \
+  -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
     "members": [
-      "NEW_USER_ID_FROM_ABOVE"
+      "32d4b09d-4527-40d5-923b-e166d85cb459"
     ]
   }' -k
 ```
 
-**⚠️ Important:** Replace:
-- `YOUR_TEAM_ID` with your actual team ID from Step 4 (not the example shown)
-- `YOUR_TOKEN_HERE` with your actual token from Step 2 (not the example shown)
-- `NEW_USER_ID_FROM_ABOVE` with the actual new user ID you just created (not the example shown)
+#### Response (204 No Content)
 
-**💡 Note:** The user who created the team is automatically added as an owner, so you only need to add new members here.
+Success! The members have been added to your team.
 
-### What you'll get back:
-If successful, you'll get no response (that's normal and means it worked!)
+#### 5.3: List Team Members
 
-### 🎉 Success!
-Your team now has members and is ready to create pipelines!
+```bash
+curl -X GET "https://your-server/api/teams/$TEAM_ID/members" \
+  -H "Authorization: Bearer $TOKEN" -k
+```
+
+**Response:**
+```json
+[
+  {
+    "id": "3b0c298a-062e-42d1-a01b-277fa66908da",
+    "email": "john.doe@company.com",
+    "role": "owner"
+  },
+  {
+    "id": "32d4b09d-4527-40d5-923b-e166d85cb459",
+    "email": "jane.smith@company.com",
+    "role": "member"
+  }
+]
+```
 
 ---
 
-## Step 6: Create a Pipeline
+### Step 6: Pipeline Creation
 
-### What you're doing:
-Creating your first data pipeline! This is where the magic happens - it will move and process your data.
+**What:** Create a data pipeline with source and target connectors
+**When:** After team setup
+**Permissions:** Team members with write access
 
-### What you need:
-- Your token from Step 2
-- Your team ID from Step 4
+#### 🎯 Understanding Pipeline Structure (V2 - Flattened)
 
-### What this pipeline does:
-- **Source**: Reads data from Kafka (a messaging system)
-- **Target**: Writes data to Oracle (a database)
-- **Transform**: Processes the data between source and target
+The new API uses a **flattened structure** instead of nested `json_configuration`. You can:
 
-### How to do it:
+1. **Use existing connectors** by specifying their IDs
+2. **Create new connectors** by providing name, type, and config
+3. **Mix both** (e.g., existing source + new target)
 
-**Copy and paste this command:**
+#### Option A: Create Pipeline with New Connectors
+
 ```bash
 curl -X POST "https://your-server/api/pipelines/" \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "My First Pipeline",
-    "team_id": "YOUR_TEAM_ID",
-    "state": "draft",
-    "json_configuration": {
-      "source_name": "kafka-source",
-      "source_type": "kafka_source",
-      "source_config": {
-        "topic": "user-events",
-        "bootstrap_servers": "localhost:9092",
-        "consumer_group_id": "events-consumer-group",
-        "sasl_username": "kafka_user",
-        "sasl_password": "kafka_password",
-        "sasl_mechanism": "PLAIN",
-        "security_protocol": "SASL_SSL",
-        "include_metadata": false
+    "name": "kafka-to-oracle-pipeline",
+    "team_id": "'$TEAM_ID'",
+
+    "source_name": "kafka-events-source",
+    "source_type": "KAFKA_SOURCE",
+    "source_config": {
+      "topic": "user-events",
+      "bootstrap_servers": "kafka.company.com:9092",
+      "consumer_group_id": "pipeline-consumer",
+      "sasl_username": "kafka_user",
+      "sasl_password": "kafka_pass",
+      "sasl_mechanism": "PLAIN",
+      "security_protocol": "SASL_SSL"
+    },
+
+    "target_name": "oracle-warehouse",
+    "target_type": "ORACLE_TARGET",
+    "target_config": {
+      "host": "oracle.company.com",
+      "port": "1521",
+      "database": "ORCL",
+      "server_name": "XE",
+      "server_id": "oraclesrv01",
+      "user": "etl_user",
+      "password": "etl_pass"
+    },
+
+    "subscription_target_table_name": "events",
+    "subscription_backfill": false,
+    "subscription_mapper_config": [
+      {
+        "key": "user_id",
+        "path": "$.user_id",
+        "cast": "string",
+        "primary_key": true,
+        "nullable": false
       },
-      "target_name": "oracle-target",
-      "target_type": "oracle_target",
-      "target_config": {
-        "database": "ORCL",
-        "user": "oracle_user",
-        "password": "oracle_password",
-        "host": "localhost",
-        "port": "1521",
-        "server_name": "XE",
-        "server_id": "oraclesrv01"
-      },
-      "smt_name": "basic-transform",
-      "smt_config": [],
-      "draft_step": "config"
-    }
+      {
+        "key": "event_type",
+        "path": "$.event_type",
+        "cast": "string",
+        "primary_key": false,
+        "nullable": false
+      }
+    ]
   }' -k
 ```
 
-**⚠️ Important:** Replace:
-- `YOUR_TOKEN_HERE` with your actual token from Step 2 (not the example shown)
-- `YOUR_TEAM_ID` with your actual team ID from Step 4 (not the example shown)
+#### Option B: Create Pipeline with Existing Connectors
 
-### What you'll get back:
-```json
-{
-  "name": "My First Pipeline",
-  "state": "draft",
-  "json_configuration": { ... },
-  "id": "5efd3d63-a6eb-4b0c-afe9-6ee1d8f5f820",
-  "team_name": "My Data Team",
-  "team_id": "881e0fce-5caa-4f5c-82c6-5eb883c47100"
-}
-```
-
-### 📝 SAVE THIS:
-**Pipeline ID:** `5efd3d63-a6eb-4b0c-afe9-6ee1d8f5f820` ← This is an example! Copy YOUR actual Pipeline ID from the response above!
-
-### 🎉 Success!
-Your pipeline is created and ready to be configured and started!
-
----
-
-## Step 7: Update a Pipeline
-
-### What you're doing:
-Changing your pipeline settings - like editing a document after you've written it.
-
-### What you need:
-- Your token from Step 2
-- Your pipeline ID from Step 6
-
-### How to do it:
-
-**Copy and paste this command:**
 ```bash
-curl -X PATCH "https://your-server/api/pipelines/YOUR_PIPELINE_ID" \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+curl -X POST "https://your-server/api/pipelines/" \
+  -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "Updated Pipeline Name",
-    "json_configuration": {
-      "source_name": "updated-kafka-source",
-      "source_type": "kafka_source",
-      "source_config": {
-        "topic": "updated-topic",
-        "bootstrap_servers": "localhost:9092",
-        "consumer_group_id": "updated-consumer-group",
-        "sasl_username": "updated_user",
-        "sasl_password": "updated_password",
-        "sasl_mechanism": "PLAIN",
-        "security_protocol": "SASL_SSL",
-        "include_metadata": false
-      },
-      "target_name": "updated-oracle-target",
-      "target_type": "oracle_target",
-      "target_config": {
-        "database": "ORCL",
-        "user": "updated_oracle_user",
-        "password": "updated_oracle_password",
-        "host": "localhost",
-        "port": "1521",
-        "server_name": "XE",
-        "server_id": "oraclesrv01"
-      },
-      "smt_name": "updated-transform",
-      "smt_config": [],
-      "draft_step": "config"
-    }
+    "name": "reuse-connectors-pipeline",
+    "team_id": "'$TEAM_ID'",
+
+    "existing_source_id": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+    "existing_target_id": "f6e5d4c3-b2a1-4c5d-9e8f-5d4c3b2a1f0e",
+
+    "subscription_target_table_name": "events_copy",
+    "subscription_backfill": true
   }' -k
 ```
 
-**⚠️ Important:** Replace:
-- `YOUR_PIPELINE_ID` with your actual pipeline ID from Step 6 (not the example shown)
-- `YOUR_TOKEN_HERE` with your actual token from Step 2 (not the example shown)
+#### Pipeline Configuration Fields
 
-### What you'll get back:
+##### Core Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | ✅ | Pipeline name (unique within team, alphanumeric with `-` and `_` only, max 255 chars) |
+| `team_id` | UUID | ✅ | Team that owns this pipeline |
+
+##### Source Connector (Choose ONE approach)
+
+**Approach 1: Use Existing Connector**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `existing_source_id` | UUID | ID of an existing source connector |
+
+**Approach 2: Create New Connector**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `source_name` | string | Name for the new source connector |
+| `source_type` | string | Connector type: `KAFKA_SOURCE` |
+| `source_config` | object | Configuration specific to the connector type |
+
+##### Target Connector (Choose ONE approach)
+
+**Approach 1: Use Existing Connector**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `existing_target_id` | UUID | ID of an existing target connector |
+
+**Approach 2: Create New Connector**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `target_name` | string | Name for the new target connector |
+| `target_type` | string | Connector type: `KAFKA_TARGET`, `ORACLE_TARGET` |
+| `target_config` | object | Configuration specific to the connector type |
+
+##### Data Model Configuration (Optional)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `datamodel_source_topic` | string | Source topic for the data model |
+| `datamodel_target_topic` | string | Target topic for the data model |
+| `datamodel_error_table_enabled` | boolean | Enable error table for data model |
+| `datamodel_error_table_name` | string | Name of the error table |
+| `datamodel_error_table_target_id` | UUID | Target connector for error table |
+
+##### Subscription Configuration (Optional)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `subscription_target_table_name` | string | Target table name in the destination |
+| `subscription_backfill` | boolean | Whether to backfill historical data |
+| `subscription_mapper_config` | array | Column mapping configuration (see Mapper Config below) |
+| `subscription_consumer_id` | string | Consumer ID (auto-generated if not provided) |
+| `subscription_error_table_enabled` | boolean | Enable error table for subscription |
+| `subscription_error_table_name` | string | Name of the subscription error table |
+| `subscription_error_table_target_id` | UUID | Target connector for subscription errors |
+
+##### Mapper Configuration
+
+Each mapper config entry:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `key` | string | Column name |
+| `path` | string | JSON path to extract value (e.g., `$.field.nested`) |
+| `static` | string | Static value (alternative to path) |
+| `cast` | string | Data type: `string`, `int`, `float`, `bool`, `date`, `datetime`, `time` |
+| `cast_format` | string | Format for casting (e.g., date format) |
+| `primary_key` | boolean | Is this a primary key column |
+| `nullable` | boolean | Can this column be null |
+
+#### Response (201 Created)
+
 ```json
 {
-  "name": "Updated Pipeline Name",
-  "state": "draft",
-  "json_configuration": { ... },
   "id": "5efd3d63-a6eb-4b0c-afe9-6ee1d8f5f820",
-  "team_name": "My Data Team",
-  "team_id": "881e0fce-5caa-4f5c-82c6-5eb883c47100"
+  "name": "kafka-to-oracle-pipeline",
+  "state": "draft",
+  "version": 1,
+  "team_id": "881e0fce-5caa-4f5c-82c6-5eb883c47100",
+  "team_name": "Data Engineering Team",
+
+  "existing_source_id": null,
+  "source_name": "kafka-events-source",
+  "source_type": "KAFKA_SOURCE",
+  "source_config": { "topic": "user-events", ... },
+
+  "existing_target_id": null,
+  "target_name": "oracle-warehouse",
+  "target_type": "ORACLE_TARGET",
+  "target_config": { "host": "oracle.company.com", ... },
+
+  "subscription_target_table_name": "events",
+  "subscription_backfill": false,
+  "subscription_mapper_config": [...],
+
+  "created_at": "2025-11-19T10:30:00Z",
+  "updated_at": "2025-11-19T10:30:00Z"
 }
 ```
 
-### 🎉 Success!
-Your pipeline has been updated with the new settings!
+#### 📝 Save This
+
+```
+PIPELINE_ID=5efd3d63-a6eb-4b0c-afe9-6ee1d8f5f820
+```
+
+#### 🔍 Available Connector Types
+
+**Sources:**
+- `KAFKA_SOURCE` - Apache Kafka
+
+**Targets:**
+- `KAFKA_TARGET` - Apache Kafka
+- `ORACLE_TARGET` - Oracle database
+
+**Jobs:**
+- `JOB_SMT` - Single Message Transform (for data transformations)
 
 ---
 
-## Step 8: Start/Stop a Pipeline
+### Step 7: Pipeline Updates
 
-### What you're doing:
-Controlling your pipeline - like turning a machine on and off.
+**What:** Modify an existing pipeline
+**When:** Need to change configuration or settings
+**Permissions:** Team members with write access
 
-### What you need:
-- Your token from Step 2
-- Your pipeline ID from Step 6
+#### Update Pipeline Configuration
 
-### 🚀 Start your pipeline:
-
-**Copy and paste this command:**
 ```bash
-curl -X POST "https://your-server/api/pipelines/YOUR_PIPELINE_ID/start" \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
-  -k
+curl -X PATCH "https://your-server/api/pipelines/$PIPELINE_ID" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "updated-pipeline-name",
+    "source_config": {
+      "topic": "new-topic",
+      "bootstrap_servers": "kafka.company.com:9092",
+      "consumer_group_id": "updated-consumer"
+    },
+    "subscription_backfill": true
+  }' -k
 ```
 
-**⚠️ Important:** Replace:
-- `YOUR_PIPELINE_ID` with your actual pipeline ID from Step 6 (not the example shown)
-- `YOUR_TOKEN_HERE` with your actual token from Step 2 (not the example shown)
+#### 💡 Update Patterns
 
-### What you'll get back:
-```
-"building"
-```
-
-### 💡 What "building" means:
-Your pipeline is starting up and getting ready to process data. This is normal!
-
-### ⏸️ Stop (pause) your pipeline:
-
-**Copy and paste this command:**
-```bash
-curl -X POST "https://your-server/api/pipelines/YOUR_PIPELINE_ID/pause" \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
-  -k
+**Pattern 1: Update Only Name**
+```json
+{
+  "name": "new-pipeline-name"
+}
 ```
 
-**⚠️ Important:** Replace:
-- `YOUR_PIPELINE_ID` with your actual pipeline ID from Step 6 (not the example shown)
-- `YOUR_TOKEN_HERE` with your actual token from Step 2 (not the example shown)
-
-### What you'll get back:
+**Pattern 2: Switch to Existing Connector**
+```json
+{
+  "existing_source_id": "new-connector-uuid",
+  "source_name": null,
+  "source_type": null,
+  "source_config": null
+}
 ```
-"paused"
+
+**Pattern 3: Update Subscription Config**
+```json
+{
+  "subscription_target_table_name": "new_table",
+  "subscription_backfill": true,
+  "subscription_mapper_config": [...]
+}
 ```
 
-### 🎉 Success!
-You now know how to start and stop your data pipeline!
+#### Response (200 OK)
 
-### 📊 Pipeline States Explained:
-- **draft**: Pipeline is being designed
-- **building**: Pipeline is starting up
-- **live**: Pipeline is running and processing data
-- **paused**: Pipeline is stopped
-- **error**: Pipeline has a problem (check logs)
+Returns the updated pipeline with all fields.
 
 ---
 
-## Alternative Testing Methods
+### Step 8: Pipeline Control
 
-### 🛠️ Other Ways to Test the API
+**What:** Start, pause, or check pipeline status
+**When:** After pipeline creation and configuration
+**States:** `draft` → `building` → `live` → `paused` / `error`
 
-If you don't want to use curl commands, you can use these tools:
+#### 8.1: Start Pipeline
 
-#### 1. **Postman** (Recommended for beginners)
-- Download Postman (free)
-- Create a new request
-- Set the method (GET, POST, PATCH)
-- Add the URL: `https://your-server/api/...`
-- Add headers: `Authorization: Bearer YOUR_TOKEN`
-- Add JSON body for POST/PATCH requests
-- Click Send!
+```bash
+curl -X POST "https://your-server/api/pipelines/$PIPELINE_ID/start" \
+  -H "Authorization: Bearer $TOKEN" -k
+```
 
-#### 2. **Python Script**
+**Response (202 Accepted):**
+```json
+"BUILDING"
+```
+
+The pipeline transitions through these states:
+1. `draft` - Initial state, configuration in progress
+2. `building` - Pipeline is being deployed
+3. `live` - Pipeline is running and processing data
+
+#### 8.2: Pause Pipeline
+
+```bash
+curl -X POST "https://your-server/api/pipelines/$PIPELINE_ID/pause" \
+  -H "Authorization: Bearer $TOKEN" -k
+```
+
+**Response (202 Accepted):**
+```json
+"PAUSED"
+```
+
+#### 8.3: Check Pipeline Status
+
+```bash
+curl -X GET "https://your-server/api/pipelines/$PIPELINE_ID" \
+  -H "Authorization: Bearer $TOKEN" -k
+```
+
+**Response (200 OK):**
+```json
+{
+  "id": "5efd3d63-a6eb-4b0c-afe9-6ee1d8f5f820",
+  "name": "kafka-to-oracle-pipeline",
+  "state": "live",
+  "version": 1,
+  "created_at": "2025-11-19T10:30:00Z",
+  "updated_at": "2025-11-19T10:45:00Z"
+}
+```
+
+#### 8.4: Get Pipeline Logs (WebSocket)
+
+```javascript
+// WebSocket connection example
+const ws = new WebSocket(
+  `wss://your-server/api/pipelines/${PIPELINE_ID}/logs`,
+  ['Authorization', `Bearer ${TOKEN}`]
+);
+
+ws.onmessage = (event) => {
+  console.log('Log:', event.data);
+};
+```
+
+#### Pipeline State Diagram
+
+```
+     ┌──────┐
+     │DRAFT │ (initial state)
+     └───┬──┘
+         │ start
+         ▼
+   ┌─────────┐
+   │BUILDING │ (deployment in progress)
+   └────┬────┘
+        │ (automatic)
+        ▼
+     ┌──────┐
+     │ LIVE │ (processing data)
+     └───┬──┘
+         │
+         │ pause
+         ▼
+    ┌────────┐
+    │ PAUSED │
+    └───┬────┘
+        │
+      resume
+        │
+        ▼
+   ┌─────────┐
+   │BUILDING │
+   └─────────┘
+```
+
+---
+
+## 🛠️ Testing Tools
+
+### Option 1: cURL (Command Line)
+
+**Pros:** Available everywhere, scriptable
+**Cons:** Verbose, requires manual token management
+
+```bash
+# Set variables for easy reuse
+export SERVER="https://your-server"
+export TOKEN="your-token-here"
+
+# Make a request
+curl -X GET "$SERVER/api/pipelines/" \
+  -H "Authorization: Bearer $TOKEN" -k
+```
+
+### Option 2: HTTPie (Command Line - User Friendly)
+
+**Pros:** Simpler syntax, better output
+**Cons:** Requires installation
+
+```bash
+# Install
+pip install httpie
+
+# Use
+http GET https://your-server/api/pipelines/ \
+  Authorization:"Bearer $TOKEN"
+```
+
+### Option 3: Postman (GUI)
+
+**Pros:** Visual interface, request collections
+**Cons:** Requires download
+
+1. Download Postman
+2. Create a new request
+3. Set method (GET, POST, etc.)
+4. Enter URL: `https://your-server/api/pipelines/`
+5. Add header: `Authorization: Bearer YOUR_TOKEN`
+6. Add JSON body for POST/PATCH
+7. Click "Send"
+
+### Option 4: Python Script
+
+**Pros:** Full programming capabilities
+**Cons:** Requires Python knowledge
+
 ```python
 import requests
 
-# Your token from Step 2
-token = "YOUR_TOKEN_HERE"
-headers = {"Authorization": f"Bearer {token}"}
+# Configuration
+SERVER = "https://your-server"
+TOKEN = "your-token-here"
 
-# Example: Get all pipelines
-response = requests.get("https://your-server/api/pipelines/", 
-                       headers=headers, verify=False)
+headers = {
+    "Authorization": f"Bearer {TOKEN}",
+    "Content-Type": "application/json"
+}
+
+# Get all pipelines
+response = requests.get(
+    f"{SERVER}/api/pipelines/",
+    headers=headers,
+    verify=False  # Only for self-signed certificates
+)
+
+print(response.json())
+
+# Create a pipeline
+pipeline_data = {
+    "name": "my-pipeline",
+    "team_id": "your-team-id",
+    "source_name": "my-source",
+    "source_type": "KAFKA_SOURCE",
+    "source_config": {...}
+}
+
+response = requests.post(
+    f"{SERVER}/api/pipelines/",
+    headers=headers,
+    json=pipeline_data,
+    verify=False
+)
+
 print(response.json())
 ```
 
-#### 3. **Browser DevTools**
-- Open your browser
-- Go to any website
-- Press F12 to open DevTools
-- Go to Console tab
-- Paste JavaScript code like:
-```javascript
-fetch('https://your-server/api/pipelines/', {
-    headers: {'Authorization': 'Bearer YOUR_TOKEN_HERE'}
-})
-.then(response => response.json())
-.then(data => console.log(data));
-```
+---
 
-#### 4. **HTTPie** (Command line tool)
-```bash
-http GET https://your-server/api/pipelines/ \
-  Authorization:"Bearer YOUR_TOKEN_HERE"
-```
+## 📚 API Reference
 
-### 📝 Important Reminders:
+### Authentication Endpoints
 
-When using any method, remember to:
-- Replace `YOUR_TOKEN_HERE` with your actual token (not the examples shown in this guide)
-- Replace all example UUIDs with your actual IDs from the API responses
-- Use `https://your-server/api` as the base URL
-- Follow the 8 steps in order
-- Save all the IDs you get back from YOUR actual API responses
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/auth/register` | Create a new user account |
+| `POST` | `/auth/jwt/login` | Login and get access token |
+| `POST` | `/auth/jwt/logout` | Logout (invalidate token) |
+| `POST` | `/auth/forgot-password` | Request password reset |
+| `POST` | `/auth/reset-password` | Reset password with token |
 
-### 🎯 Pro Tips:
+### User Endpoints
 
-1. **Start with curl**: It's included on most computers
-2. **Use Postman**: If you want a visual interface
-3. **Try Python**: If you want to automate multiple steps
-4. **Save your work**: Keep a text file with all your actual IDs and tokens (not the examples from this guide)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/users` | List all users (paginated) |
+| `GET` | `/users/{id}` | Get user details |
+| `PATCH` | `/users/{id}` | Update user |
+| `DELETE` | `/users/{id}` | Delete user |
+| `POST` | `/users/me/change-password` | Change current user's password |
+| `POST` | `/users/me/service-account-token` | Create service account token |
+| `GET` | `/users/export-all` | Export all data (admin only) |
+| `POST` | `/users/import-all` | Import all data (admin only) |
+
+### Environment Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/envs/` | List all environments (paginated) |
+| `POST` | `/envs/` | Create a new environment |
+| `GET` | `/envs/{id}` | Get environment details |
+| `GET` | `/envs/filter-one?name={name}` | Get environment by name |
+| `PATCH` | `/envs/{id}` | Update environment |
+| `DELETE` | `/envs/{id}` | Delete environment |
+| `POST` | `/envs/check-byok-credentials` | Check BYOK credentials |
+
+### Team Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/teams/` | List all teams (paginated) |
+| `POST` | `/teams/` | Create a new team |
+| `GET` | `/teams/{id}` | Get team details |
+| `GET` | `/teams/filter-one?name={name}` | Get team by name |
+| `PATCH` | `/teams/{id}` | Update team |
+| `DELETE` | `/teams/{id}` | Delete team |
+
+### Team Member Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/teams/{id}/members` | List team members |
+| `POST` | `/teams/{id}/members/bulk` | Add multiple members |
+| `DELETE` | `/teams/{id}/members/{user_id}` | Remove a member |
+
+### Pipeline Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/pipelines/` | List all pipelines (paginated) |
+| `GET` | `/pipelines/count-status` | Count pipelines by status |
+| `POST` | `/pipelines/` | Create a new pipeline |
+| `GET` | `/pipelines/{id}` | Get pipeline details |
+| `GET` | `/pipelines/filter-one?name={name}` | Get pipeline by name |
+| `PATCH` | `/pipelines/{id}` | Update pipeline |
+| `DELETE` | `/pipelines/{id}` | Delete pipeline |
+| `POST` | `/pipelines/{id}/start` | Start pipeline (202) |
+| `POST` | `/pipelines/{id}/pause` | Pause pipeline (202) |
+| `WebSocket` | `/pipelines/{id}/logs` | Stream pipeline logs |
+| `GET` | `/pipelines/{id}/status` | Get pipeline status (deprecated) |
+| `GET` | `/pipelines/{id}/configuration` | Export pipeline config |
+| `POST` | `/pipelines/{id}/configuration` | Import pipeline config |
+| `GET` | `/pipelines/{id}/worker-config` | Get worker config |
+| `GET` | `/pipelines/status/all-non-draft` | List non-draft pipelines with status |
+| `GET` | `/pipelines/{id}/latency-informations` | Get pipeline latency info |
+
+### Connector Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/connectors/source-config` | List source configurations |
+| `GET` | `/connectors/target-config` | List target configurations |
+| `GET` | `/connectors/filter-one?name={name}` | Get connector by name |
+| `GET` | `/connectors/{id}` | Get connector by ID |
+| `GET` | `/connectors/{id}/source-worker-config` | Get source worker config |
+| `GET` | `/connectors/{id}/target-worker-config` | Get target worker config |
+| `POST` | `/connectors/` | Create connector |
+| `PATCH` | `/connectors/{id}` | Update connector |
+| `DELETE` | `/connectors/{id}` | Delete connector |
+| `POST` | `/connectors/{id}/start` | Start connector worker (202) |
+| `POST` | `/connectors/{id}/stop` | Stop connector worker (202) |
+| `WebSocket` | `/connectors/{id}/logs` | Stream connector logs |
+
+### Subscription Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/subscriptions/` | List subscriptions (paginated) |
+| `GET` | `/subscriptions/{id}` | Get subscription details |
+| `POST` | `/subscriptions/` | Create subscription |
+| `POST` | `/subscriptions/subscribe-all` | Bulk create subscriptions |
+| `PATCH` | `/subscriptions/{id}` | Update subscription |
+| `DELETE` | `/subscriptions/{id}` | Delete subscription |
+| `POST` | `/subscriptions/{id}/start` | Start subscription (202) |
+| `POST` | `/subscriptions/{id}/pause` | Pause subscription (202) |
+
+### DataModel Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/datamodels/` | List datamodels (paginated) |
+| `GET` | `/datamodels/{id}` | Get datamodel by ID |
+| `GET` | `/datamodels/{id}/monitoring` | Get datamodel monitoring |
+| `GET` | `/datamodels/{id}/schema` | Get datamodel schema |
+| `PATCH` | `/datamodels/{id}/error-table` | Update error table config |
+| `DELETE` | `/datamodels/{id}` | Delete datamodel |
+
+### Worker Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `PATCH` | `/workers/resource/{id}/state` | Update worker state |
+| `POST` | `/workers/resource/{id}/heartbeat` | Send worker heartbeat |
+| `WebSocket` | `/workers/resource/{id}/status` | Stream worker status |
+
+### Error Table Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/error-table/error-tables` | List error table configurations |
+| `POST` | `/error-table/configure/{pipeline_id}/{target_id}` | Configure error table |
+
+### Broker Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/brokers/` | Test broker credentials |
+
+### Schema Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/schemas/{subject}` | Register schema |
+
+### SMT/Transformation Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/smt/process_mapper` | Process mapper transformation |
+
+### Connector Type Specific Endpoints
+
+#### Kafka Source
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/connector-types/kafka-source/check-credentials` | Check Kafka source credentials |
+| `POST` | `/connector-types/kafka-source/fetch-messages` | Fetch messages from Kafka |
+| `POST` | `/connector-types/kafka-source/list-topics` | List Kafka topics |
+
+#### Oracle Target
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/connector-types/oracle-target/check-credentials` | Check Oracle target credentials |
+
+### Health & Monitoring
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/healthchecks/` | Health check endpoint |
+| `GET` | `/probes/` | Probe endpoint |
 
 ---
 
-## 🎉 Congratulations!
+## 🔧 Connector Configurations
 
-You've learned how to:
-- ✅ Create user accounts
-- ✅ Log in and get tokens
-- ✅ Create environments (workspaces)
-- ✅ Create teams
-- ✅ Add team members
-- ✅ Create data pipelines
-- ✅ Update pipelines
-- ✅ Start and stop pipelines
+### KAFKA_SOURCE Configuration
 
-You're now ready to build amazing data processing pipelines with Popsink! 🚀
+```json
+{
+  "topic": "user-events",
+  "consumer_group_id": "pipeline-consumer",
+  "bootstrap_servers": "kafka1:9092,kafka2:9092",
+  "security_protocol": "SASL_SSL",
+  "sasl_mechanism": "PLAIN",
+  "sasl_username": "kafka_user",
+  "sasl_password": "kafka_pass",
+  "include_metadata": false
+}
+```
+
+**Field Descriptions:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `topic` | string | ✅ | Kafka topic to consume from |
+| `bootstrap_servers` | string | ✅ | Comma-separated list of Kafka brokers |
+| `consumer_group_id` | string | ⬜ | Consumer group ID (auto-generated if not provided) |
+| `security_protocol` | string | ⬜ | `PLAINTEXT`, `SASL_PLAINTEXT`, `SASL_SSL`, `SSL` |
+| `sasl_mechanism` | string | ⬜ | `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`, `GSSAPI`, `OAUTHBEARER` |
+| `sasl_username` | string | ⬜ | SASL username (required if using SASL) |
+| `sasl_password` | string | ⬜ | SASL password (required if using SASL) |
+| `include_metadata` | boolean | ⬜ | Include Kafka metadata in messages (default: false) |
+
+---
+
+### KAFKA_TARGET Configuration
+
+```json
+{
+  "bootstrap_server": "kafka1:9092",
+  "security_protocol": "SASL_SSL",
+  "sasl_mechanism": "PLAIN",
+  "sasl_username": "kafka_user",
+  "sasl_password": "kafka_pass",
+  "ca_cert": "",
+  "group_id": "consumer-group"
+}
+```
+
+**Field Descriptions:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `bootstrap_server` | string | ✅ | Kafka broker address |
+| `security_protocol` | string | ⬜ | `PLAINTEXT`, `SASL_PLAINTEXT`, `SASL_SSL`, `SSL` |
+| `sasl_mechanism` | string | ⬜ | `PLAIN`, `SCRAM-SHA-256`, `SCRAM-SHA-512`, `GSSAPI`, `OAUTHBEARER` |
+| `sasl_username` | string | ⬜ | SASL username |
+| `sasl_password` | string | ⬜ | SASL password |
+| `ca_cert` | string | ⬜ | CA certificate for SSL |
+| `group_id` | string | ⬜ | Consumer group ID |
+
+---
+
+### ORACLE_TARGET Configuration
+
+```json
+{
+  "database": "ORCL",
+  "user": "etl_user",
+  "password": "etl_pass",
+  "host": "oracle.company.com",
+  "port": "1521",
+  "server_name": "XE",
+  "server_id": "oraclesrv01"
+}
+```
+
+**Field Descriptions:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `database` | string | ✅ | Oracle database name |
+| `user` | string | ✅ | Username for Oracle |
+| `password` | string | ✅ | Password for Oracle |
+| `host` | string | ✅ | Hostname or IP address |
+| `port` | string | ✅ | Port number (typically `1521`) |
+| `server_name` | string | ✅ | Service name (e.g., `XE`) |
+| `server_id` | string | ✅ | Server identifier/SID |
+
+---
+
+### JOB_SMT (Transformations)
+
+SMT jobs use a list of transformation functions. Each function has:
+
+```json
+{
+  "function_type": "MAPPER",
+  "function_config": [
+    {
+      "key": "user_id",
+      "path": "$.userId",
+      "cast": "string",
+      "primary_key": true,
+      "nullable": false
+    }
+  ]
+}
+```
+
+**Available SMT Functions:**
+
+| Function | Description | Config Type |
+|----------|-------------|-------------|
+| `MAPPER` | Map and transform columns | List of MapperColumnConfig |
+| `FLATTENER` | Flatten nested JSON structures | None |
+| `SPLITTER` | Split data into multiple tables | SplitterConfiguration |
+| `KEY_FILTER` | Filter specific keys | KeysConfiguration |
+| `UNENVELOPE` | Remove envelope from messages | KeyConfiguration |
+| `STRINGIFY_LIST` | Convert lists to strings | None |
+| `STRINGIFY_KEY` | Convert specific keys to strings | KeysConfiguration |
+| `KEY_MOVER` | Move keys to different locations | List of KeyMoverConfig |
+| `DICT_MOVER` | Move entire dictionaries | KeysConfiguration |
+| `SANITIZE_KEY` | Sanitize key names | None |
+| `HASH` | Hash sensitive values | HashConfig |
+| `ENCRYPT` | Encrypt sensitive values | EncryptConfiguration |
+| `FILTERING` | Filter records based on conditions | FilteringConfiguration |
+
+**Mapper Column Config (most common):**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `key` | string | Column name in target |
+| `path` | string | JSON path to extract value (e.g., `$.field.nested`) |
+| `static` | string | Static value (alternative to path) |
+| `cast` | string | Cast to: `string`, `int`, `float`, `bool`, `date`, `datetime`, `time` |
+| `cast_format` | string | Format for casting (e.g., date format) |
+| `primary_key` | boolean | Is this a primary key column |
+| `nullable` | boolean | Can this column be null |
+
+---
+
+## 🎯 Common Patterns
+
+### Pattern 1: List Resources with Filters
+
+```bash
+# Get all pipelines in a specific state
+curl -X GET "https://your-server/api/pipelines/?state=live" \
+  -H "Authorization: Bearer $TOKEN" -k
+
+# Get pipelines for a specific team
+curl -X GET "https://your-server/api/pipelines/?team_id=$TEAM_ID" \
+  -H "Authorization: Bearer $TOKEN" -k
+
+# Search pipelines by name
+curl -X GET "https://your-server/api/pipelines/?search=kafka" \
+  -H "Authorization: Bearer $TOKEN" -k
+```
+
+### Pattern 2: Pagination
+
+```bash
+# Get first page (default 50 items)
+curl -X GET "https://your-server/api/pipelines/?skip=0&limit=50" \
+  -H "Authorization: Bearer $TOKEN" -k
+
+# Get second page
+curl -X GET "https://your-server/api/pipelines/?skip=50&limit=50" \
+  -H "Authorization: Bearer $TOKEN" -k
+```
+
+### Pattern 3: Error Handling
+
+```python
+import requests
+
+try:
+    response = requests.get(
+        "https://your-server/api/pipelines/",
+        headers={"Authorization": f"Bearer {TOKEN}"},
+        verify=False
+    )
+    response.raise_for_status()  # Raises exception for 4xx/5xx
+    data = response.json()
+except requests.exceptions.HTTPError as e:
+    print(f"HTTP Error: {e}")
+    print(f"Response: {e.response.text}")
+except requests.exceptions.ConnectionError as e:
+    print(f"Connection Error: {e}")
+except Exception as e:
+    print(f"Error: {e}")
+```
+
+### Pattern 4: Bulk Operations
+
+```python
+# Create multiple pipelines
+pipeline_configs = [
+    {"name": "pipeline-1", "team_id": TEAM_ID, ...},
+    {"name": "pipeline-2", "team_id": TEAM_ID, ...},
+    {"name": "pipeline-3", "team_id": TEAM_ID, ...}
+]
+
+for config in pipeline_configs:
+    response = requests.post(
+        f"{SERVER}/api/pipelines/",
+        headers=headers,
+        json=config
+    )
+    print(f"Created: {response.json()['id']}")
+```
+
+### Pattern 5: Test Connector Credentials Before Creating
+
+```bash
+# Test Kafka source credentials
+curl -X POST "https://your-server/api/connector-types/kafka-source/check-credentials" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "bootstrap_servers": "kafka:9092",
+    "topic": "test-topic",
+    "security_protocol": "PLAINTEXT"
+  }' -k
+
+# Test Oracle target credentials
+curl -X POST "https://your-server/api/connector-types/oracle-target/check-credentials" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "host": "oracle.company.com",
+    "port": "1521",
+    "database": "ORCL",
+    "user": "etl_user",
+    "password": "etl_pass",
+    "server_name": "XE",
+    "server_id": "oraclesrv01"
+  }' -k
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Issue: "401 Unauthorized"
+
+**Cause:** Token is missing, expired, or invalid
+
+**Solution:**
+1. Check that you included the `Authorization` header
+2. Verify the token format: `Bearer YOUR_TOKEN`
+3. Log in again to get a fresh token
+
+```bash
+curl -X POST "https://your-server/api/auth/jwt/login" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d 'username=YOUR_EMAIL&password=YOUR_PASSWORD' -k
+```
+
+---
+
+### Issue: "403 Forbidden"
+
+**Cause:** You don't have permission for this operation
+
+**Solution:**
+1. Verify you're a member of the team
+2. Check if you have the required role (owner vs member)
+3. Contact the team owner to grant permissions
+
+---
+
+### Issue: "422 Validation Error"
+
+**Cause:** Request data doesn't meet validation requirements
+
+**Solution:**
+1. Check the error response for specific field errors
+2. Verify all required fields are provided
+3. Ensure data types match (UUID, string, boolean, etc.)
+
+**Example Error Response:**
+```json
+{
+  "detail": [
+    {
+      "loc": ["body", "source_name"],
+      "msg": "field required",
+      "type": "value_error.missing"
+    }
+  ]
+}
+```
+
+**Fix:**
+```json
+{
+  "name": "my-pipeline",
+  "team_id": "uuid-here",
+  "source_name": "my-source",
+  "source_type": "KAFKA_SOURCE",
+  "source_config": {...}
+}
+```
+
+---
+
+### Issue: Invalid pipeline name
+
+**Cause:** Pipeline name contains invalid characters
+
+**Solution:** Pipeline names must:
+- Contain only alphanumeric characters, hyphens (`-`), and underscores (`_`)
+- Be maximum 255 characters long
+- Not be empty
+
+**Valid names:**
+- `kafka-to-oracle-pipeline`
+- `user_events_pipeline_v2`
+- `Pipeline123`
+
+**Invalid names:**
+- `pipeline name` (contains space)
+- `pipeline.name` (contains dot)
+- `pipeline@name` (contains special character)
+
+---
+
+### Issue: Cannot specify both existing and new connector
+
+**Cause:** You provided both `existing_source_id` AND `source_name/type/config`
+
+**Solution:** Choose ONE approach:
+
+**Option A (Existing):**
+```json
+{
+  "existing_source_id": "uuid-here"
+}
+```
+
+**Option B (New):**
+```json
+{
+  "source_name": "my-source",
+  "source_type": "KAFKA_SOURCE",
+  "source_config": {...}
+}
+```
+
+---
+
+### Issue: Pipeline stuck in "BUILDING" state
+
+**Cause:** Deployment failed or is taking longer than expected
+
+**Solution:**
+1. Check pipeline logs via WebSocket
+2. Verify connector configurations are correct
+3. Check infrastructure resources (CPU, memory)
+
+```bash
+# Get detailed status
+curl -X GET "https://your-server/api/pipelines/$PIPELINE_ID" \
+  -H "Authorization: Bearer $TOKEN" -k
+```
+
+---
+
+### Issue: SSL Certificate Error
+
+**Cause:** Self-signed certificate or untrusted CA
+
+**Solution for curl:**
+```bash
+# Add -k or --insecure flag
+curl -X GET "https://your-server/api/pipelines/" \
+  -H "Authorization: Bearer $TOKEN" -k
+```
+
+**Solution for Python:**
+```python
+requests.get(url, verify=False)
+```
+
+**Solution for HTTPie:**
+```bash
+http --verify=no GET https://your-server/api/pipelines/
+```
+
+---
+
+## 📝 Complete Example Script
+
+Here's a complete Python script that performs all steps:
+
+```python
+#!/usr/bin/env python3
+"""
+Complete Popsink API example script
+"""
+import requests
+import json
+from typing import Optional
+
+# Configuration
+SERVER = "https://your-server"
+VERIFY_SSL = False  # Set to True in production
+
+class PopsinkClient:
+    def __init__(self, server: str, verify_ssl: bool = True):
+        self.server = server.rstrip('/')
+        self.verify_ssl = verify_ssl
+        self.token: Optional[str] = None
+
+    def register(self, email: str, password: str) -> dict:
+        """Register a new user"""
+        response = requests.post(
+            f"{self.server}/api/auth/register",
+            json={
+                "email": email,
+                "password": password,
+                "is_active": True
+            },
+            verify=self.verify_ssl
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def login(self, email: str, password: str) -> str:
+        """Login and get token"""
+        response = requests.post(
+            f"{self.server}/api/auth/jwt/login",
+            data={
+                "username": email,
+                "password": password
+            },
+            verify=self.verify_ssl
+        )
+        response.raise_for_status()
+        data = response.json()
+        self.token = data["access_token"]
+        return self.token
+
+    def _headers(self) -> dict:
+        """Get headers with auth token"""
+        if not self.token:
+            raise ValueError("Not logged in. Call login() first.")
+        return {
+            "Authorization": f"Bearer {self.token}",
+            "Content-Type": "application/json"
+        }
+
+    def create_environment(self, name: str, description: str = "") -> dict:
+        """Create an environment"""
+        response = requests.post(
+            f"{self.server}/api/envs/",
+            headers=self._headers(),
+            json={
+                "name": name,
+                "description": description,
+                "use_retention": True
+            },
+            verify=self.verify_ssl
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def create_team(self, name: str, description: str = "") -> dict:
+        """Create a team"""
+        response = requests.post(
+            f"{self.server}/api/teams/",
+            headers=self._headers(),
+            json={
+                "name": name,
+                "description": description
+            },
+            verify=self.verify_ssl
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def create_pipeline(self, name: str, team_id: str, config: dict) -> dict:
+        """Create a pipeline"""
+        pipeline_data = {
+            "name": name,
+            "team_id": team_id,
+            **config
+        }
+        response = requests.post(
+            f"{self.server}/api/pipelines/",
+            headers=self._headers(),
+            json=pipeline_data,
+            verify=self.verify_ssl
+        )
+        response.raise_for_status()
+        return response.json()
+
+    def start_pipeline(self, pipeline_id: str) -> str:
+        """Start a pipeline"""
+        response = requests.post(
+            f"{self.server}/api/pipelines/{pipeline_id}/start",
+            headers=self._headers(),
+            verify=self.verify_ssl
+        )
+        response.raise_for_status()
+        return response.json()
+
+
+def main():
+    # Initialize client
+    client = PopsinkClient(SERVER, verify_ssl=VERIFY_SSL)
+
+    # 1. Register
+    print("1. Registering user...")
+    user = client.register("demo@example.com", "SecurePassword123!")
+    print(f"   ✓ User created: {user['id']}")
+
+    # 2. Login
+    print("\n2. Logging in...")
+    token = client.login("demo@example.com", "SecurePassword123!")
+    print(f"   ✓ Logged in (token: {token[:20]}...)")
+
+    # 3. Create environment
+    print("\n3. Creating environment...")
+    env = client.create_environment("demo-env", "Demo environment")
+    print(f"   ✓ Environment created: {env['id']}")
+
+    # 4. Create team
+    print("\n4. Creating team...")
+    team = client.create_team("Demo Team", "Demo team for testing")
+    print(f"   ✓ Team created: {team['id']}")
+
+    # 5. Create pipeline
+    print("\n5. Creating pipeline...")
+    pipeline_config = {
+        "source_name": "demo-kafka-source",
+        "source_type": "KAFKA_SOURCE",
+        "source_config": {
+            "topic": "demo-topic",
+            "bootstrap_servers": "kafka:9092",
+            "consumer_group_id": "demo-group",
+            "security_protocol": "PLAINTEXT"
+        },
+        "target_name": "demo-kafka-target",
+        "target_type": "KAFKA_TARGET",
+        "target_config": {
+            "bootstrap_server": "kafka:9092",
+            "security_protocol": "PLAINTEXT"
+        },
+        "subscription_target_table_name": "events",
+        "subscription_backfill": False
+    }
+    pipeline = client.create_pipeline("demo-pipeline", team['id'], pipeline_config)
+    print(f"   ✓ Pipeline created: {pipeline['id']}")
+
+    # 6. Start pipeline
+    print("\n6. Starting pipeline...")
+    state = client.start_pipeline(pipeline['id'])
+    print(f"   ✓ Pipeline state: {state}")
+
+    print("\n✓ All steps completed successfully!")
+
+
+if __name__ == "__main__":
+    main()
+```
+
+---
+
+## 🎓 Next Steps
+
+Now that you understand the basics:
+
+1. **Explore the API:** Try listing resources, filtering, pagination
+2. **Monitor Pipelines:** Use logs and status endpoints
+3. **Handle Errors:** Implement proper error handling
+4. **Test Credentials:** Use credential check endpoints before creating connectors
+5. **Optimize:** Reuse connectors, batch operations
+6. **Automate:** Create scripts or CI/CD pipelines
+
+---
+
+## 📞 Support
+
+- **Documentation:** This guide
+- **API Schema:** `https://your-server/api/docs` (Swagger UI)
+- **OpenAPI Spec:** `https://your-server/api/openapi.json`
+
+---
+
+**Happy Data Processing! 🚀**
+
+*Last updated: 2025-11-19*
