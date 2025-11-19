@@ -45,7 +45,7 @@ On this page, you will configure a few simple but essential settings :
 
 When you're finished, click on **'Configure'**.
 
-## 3. Firewall & Credentials Configuration
+## 3. Access & Credentials Configuration
 
 Next step enables your connection to your source IBMi system. You will need 2 things :
 
