@@ -977,33 +977,6 @@ print(response.json())
 | `PATCH` | `/datamodels/{id}/error-table` | Update error table config |
 | `DELETE` | `/datamodels/{id}` | Delete datamodel |
 
-### Worker Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `PATCH` | `/workers/resource/{id}/state` | Update worker state |
-| `POST` | `/workers/resource/{id}/heartbeat` | Send worker heartbeat |
-| `WebSocket` | `/workers/resource/{id}/status` | Stream worker status |
-
-### Error Table Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/error-table/error-tables` | List error table configurations |
-| `POST` | `/error-table/configure/{pipeline_id}/{target_id}` | Configure error table |
-
-### Broker Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/brokers/` | Test broker credentials |
-
-### Schema Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/schemas/{subject}` | Register schema |
-
 ### SMT/Transformation Endpoints
 
 | Method | Endpoint | Description |
@@ -1025,13 +998,6 @@ print(response.json())
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/connector-types/oracle-target/check-credentials` | Check Oracle target credentials |
-
-### Health & Monitoring
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/healthchecks/` | Health check endpoint |
-| `GET` | `/probes/` | Probe endpoint |
 
 ---
 
@@ -1123,44 +1089,7 @@ print(response.json())
 
 ---
 
-### JOB_SMT (Transformations)
-
-SMT jobs use a list of transformation functions. Each function has:
-
-```json
-{
-  "function_type": "MAPPER",
-  "function_config": [
-    {
-      "key": "user_id",
-      "path": "$.userId",
-      "cast": "string",
-      "primary_key": true,
-      "nullable": false
-    }
-  ]
-}
-```
-
-**Available SMT Functions:**
-
-| Function | Description | Config Type |
-|----------|-------------|-------------|
-| `MAPPER` | Map and transform columns | List of MapperColumnConfig |
-| `FLATTENER` | Flatten nested JSON structures | None |
-| `SPLITTER` | Split data into multiple tables | SplitterConfiguration |
-| `KEY_FILTER` | Filter specific keys | KeysConfiguration |
-| `UNENVELOPE` | Remove envelope from messages | KeyConfiguration |
-| `STRINGIFY_LIST` | Convert lists to strings | None |
-| `STRINGIFY_KEY` | Convert specific keys to strings | KeysConfiguration |
-| `KEY_MOVER` | Move keys to different locations | List of KeyMoverConfig |
-| `DICT_MOVER` | Move entire dictionaries | KeysConfiguration |
-| `SANITIZE_KEY` | Sanitize key names | None |
-| `HASH` | Hash sensitive values | HashConfig |
-| `ENCRYPT` | Encrypt sensitive values | EncryptConfiguration |
-| `FILTERING` | Filter records based on conditions | FilteringConfiguration |
-
-**Mapper Column Config (most common):**
+**Mapper Column Config :**
 
 | Field | Type | Description |
 |-------|------|-------------|
