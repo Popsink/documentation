@@ -26,13 +26,7 @@ if you need help setting it up on your DB2 environment.
 
 Take notes of the journaled tables you'd like to replicate.
 
-### 1.2 Review network access
-
-In a later step, the app will generate SQL commands that only a user with ```ACCOUNTADMIN``` privileges can run. 
-This will open network access to the source database. Please make sure your administrator is informed that the app needs 
-access to all the port of the source database.
-
-### 1.3 Find an available name for the target database
+### 1.2 Find an available name for the target database
 
 Snowflake's security prevents an app to list all the existing databases and schemas. That's why your administrator needs to run
 ```SHOW DATABASES``` to confirm that your choice of target database name is valid.
@@ -53,7 +47,7 @@ When you're finished, click on **'Configure'**.
 
 ## 3. Firewall & Credentials Configuration
 
-Next step is to set up your connection to your source IBMi system. You will need 2 things :
+Next step enables your connection to your source IBMi system. You will need 2 things :
 
 - A network access to your hostname.
 - A username & password to an account with rights to read the DB2 journal.
@@ -61,17 +55,17 @@ Next step is to set up your connection to your source IBMi system. You will need
 Snowflake has an embedded system of [external access integration (EAI)](https://docs.snowflake.com/en/developer-guide/external-network-access/creating-using-external-network-access) that securely declares the port your 
 connection requires, as well as credential data (here a simple username/password pair, the only mean to connect to IBMi)
 
-![image](./firewall_1.png)
+![image](./enable_access_1.png)
 
-When you've entered all the fields, clicking on **'Generate firewall rules'** will show a SQL Script to pass on to 
-your account admin. He will be able to run and add the required objects to move on to the next step.
+When you've entered all the fields, clicking on **'Enable access'** will take you to the next step where you simply need 
+to refresh your page. During this restart, you'll be asked to allow access to your source host, click on **'Review'**
+, then **'Next'**. In the description page of app, please click on **'Launch App'**.
 
-The password is transferred in clear to your admin but is stored securely in Snowflake, nothing but the app can access 
-it.
+![image](./enable_access_2.png)
 
-![image](./firewall_2.png)
+![image](./enable_access_3.png)
 
-When you're ready to test the connection and move to the next step, click on **'Next'**.
+After this simple step your source data will become accessible.
 
 ## 4. DB2 Connection's Configuration
 
